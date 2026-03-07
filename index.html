@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VesselPort — Verified Marine Brokerage | DeltaWind Solutions</title>
+<meta name="description" content="VesselPort by DeltaWind Solutions. Institutional-grade commercial vessel brokerage for Nigeria, West Africa and international buyers. Sale, charter and asset advisory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS — VesselPort v4
+═══════════════════════════════════════════════════════ */
+:root {
+  --white:     #ffffff;
+  --off-white: #fafbfc;
+  --pearl:     #f4f6f9;
+  --pearl-d:   #edf1f6;
+  --border-xl: #e2eaf2;
+  --border:    #d0dce8;
+  --border-sm: #b8ccdf;
+  --muted:     #8ca8c4;
+  --text-dim:  #6a8aaa;
+  --text-sec:  #3d5a78;
+  --text-pri:  #0f1e32;
+  --navy:      #0a1628;
+  --navy-lt:   #112034;
+  --slate:     #1d3558;
+  --slate-lt:  #264770;
+  --gold:      #b8922a;
+  --gold-lt:   #d4a843;
+  --gold-dk:   #9a7a22;
+  --gold-tint: rgba(184,146,42,.07);
+  --gold-line: rgba(184,146,42,.3);
+  --green-ok:  #1a7a4a;
+  --green-bg:  #e8f5ee;
+  --green-bd:  rgba(26,122,74,.2);
+  --blue-sale: #1558a6;
+  --blue-bg:   #e8f0fb;
+  --red-dim:   #8b1a1a;
+
+  --r2: 2px; --r4: 4px; --r6: 6px;
+  --sh-xs:  0 1px 2px rgba(10,22,40,.05);
+  --sh-sm:  0 1px 4px rgba(10,22,40,.07), 0 1px 2px rgba(10,22,40,.04);
+  --sh-md:  0 4px 16px rgba(10,22,40,.09), 0 1px 4px rgba(10,22,40,.05);
+  --sh-lg:  0 12px 40px rgba(10,22,40,.12), 0 4px 12px rgba(10,22,40,.06);
+  --sh-hover: 0 8px 28px rgba(10,22,40,.13), 0 2px 8px rgba(10,22,40,.07);
+
+  --font-serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:  'JetBrains Mono', 'Courier New', monospace;
+
+  --nav-h:  64px;
+  --info-h: 36px;
+  --test-h: 24px;
+  --bar-h:  calc(var(--info-h) + var(--nav-h) + var(--test-h));
+  --max-w:  1380px;
+  --pad:    2rem;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-sans); cursor: pointer; }
+ul { list-style: none; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  background: var(--off-white);
+  color: var(--text-pri);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════
+   INFO BAR
+═══════════════════════════════════════════════════════ */
+.info-bar {
+  height: var(--info-h); background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+}
+.info-bar-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad);
+  display: flex; align-items: center; justify-content: space-between; height: 100%;
+}
+.ib-left, .ib-right { display: flex; align-items: center; gap: 1.5rem; }
+.ib-item {
+  font-family: var(--font-mono); font-size: .57rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); display: flex; align-items: center; gap: .5rem;
+}
+.ib-item b { color: rgba(255,255,255,.65); font-weight: 400; }
+.ib-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.ib-sep { width: 1px; height: 14px; background: rgba(255,255,255,.1); }
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════ */
+nav {
+  height: var(--nav-h); background: var(--white);
+  border-bottom: 1px solid var(--border-xl);
+  position: fixed; top: var(--info-h); left: 0; right: 0; z-index: 299;
+  box-shadow: var(--sh-sm);
+}
+.nav-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad);
+  display: flex; align-items: center; justify-content: space-between; height: 100%;
+  gap: 1rem;
+}
+.nav-brand { display: flex; flex-direction: column; gap: 1px; cursor: pointer; flex-shrink: 0; }
+.nav-brand-name {
+  font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700;
+  color: var(--navy); letter-spacing: .01em; line-height: 1;
+}
+.nav-brand-sub {
+  font-family: var(--font-mono); font-size: .5rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); line-height: 1;
+}
+.nav-links {
+  display: flex; align-items: center; gap: .1rem; flex: 1; justify-content: center;
+}
+.nav-links a {
+  font-size: .77rem; font-weight: 500; letter-spacing: .01em; color: var(--text-sec);
+  padding: .5rem .72rem; border-radius: var(--r4);
+  transition: color .15s, background .15s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--navy); background: var(--pearl); }
+.nav-links a.nav-active { color: var(--navy); font-weight: 600; background: var(--pearl); }
+.nav-right { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+.btn-ghost {
+  font-size: .77rem; font-weight: 500; color: var(--text-sec);
+  padding: .45rem .85rem; border: 1px solid var(--border); border-radius: var(--r4);
+  background: var(--white); transition: border-color .15s, color .15s;
+}
+.btn-ghost:hover { border-color: var(--slate); color: var(--navy); }
+.btn-client {
+  font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--gold); padding: .45rem .9rem; border: 1px solid var(--gold-line);
+  border-radius: var(--r4); background: var(--gold-tint);
+  transition: background .15s, border-color .15s;
+}
+.btn-client:hover { background: rgba(184,146,42,.14); border-color: var(--gold); }
+.btn-primary-sm {
+  font-size: .77rem; font-weight: 600; color: var(--white); background: var(--navy);
+  padding: .5rem 1.1rem; border: none; border-radius: var(--r4);
+  transition: background .15s;
+}
+.btn-primary-sm:hover { background: var(--slate); }
+
+/* Mobile nav toggle */
+.nav-mobile-toggle {
+  display: none; flex-direction: column; gap: 5px; padding: .5rem;
+  background: none; border: none; cursor: pointer;
+}
+.nav-mobile-toggle span {
+  display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 1px;
+  transition: all .25s;
+}
+.mobile-nav-drawer {
+  display: none; position: fixed; top: var(--bar-h); left: 0; right: 0;
+  background: var(--white); border-bottom: 1px solid var(--border-xl);
+  z-index: 298; padding: 1rem var(--pad) 1.5rem; box-shadow: var(--sh-md);
+}
+.mobile-nav-drawer.open { display: block; }
+.mobile-nav-links { display: flex; flex-direction: column; gap: .1rem; margin-bottom: 1rem; }
+.mobile-nav-links a {
+  font-size: .88rem; font-weight: 500; color: var(--text-sec);
+  padding: .7rem .5rem; border-bottom: 1px solid var(--border-xl);
+}
+.mobile-nav-links a:last-child { border-bottom: none; }
+.mobile-nav-links a.nav-active { color: var(--navy); font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════════════════════ */
+.page { display: none; padding-top: var(--bar-h); min-height: 100vh; }
+.page.active { display: block; }
+.wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE HEADER (dark)
+═══════════════════════════════════════════════════════ */
+.ph {
+  background: var(--navy); padding: 3.5rem var(--pad) 3rem; position: relative;
+  overflow: hidden;
+}
+.ph::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 35%, var(--gold-lt) 65%, transparent 100%);
+}
+.ph-inner { max-width: var(--max-w); margin: 0 auto; }
+.ph-label {
+  font-family: var(--font-mono); font-size: .58rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .65rem;
+}
+.ph-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.ph-title {
+  font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700; color: var(--white); line-height: 1.08; margin-bottom: .9rem;
+}
+.ph-title em { font-style: italic; font-weight: 400; color: rgba(255,255,255,.7); }
+.ph-desc { font-size: .9rem; color: rgba(255,255,255,.52); line-height: 1.75; max-width: 540px; }
+
+/* ═══════════════════════════════════════════════════════
+   SECTION PRIMITIVES
+═══════════════════════════════════════════════════════ */
+.sec { padding: 5rem var(--pad); }
+.sec-sm { padding: 3.5rem var(--pad); }
+.sec-xs { padding: 2rem var(--pad); }
+.sec-pearl { background: var(--pearl); border-top: 1px solid var(--border-xl); border-bottom: 1px solid var(--border-xl); }
+.sec-navy { background: var(--navy); }
+.sec-inner { max-width: var(--max-w); margin: 0 auto; }
+
+.sec-chip {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-family: var(--font-mono); font-size: .58rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .85rem;
+}
+.sec-chip::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+
+.sec-title {
+  font-family: var(--font-serif); font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+  font-weight: 700; color: var(--navy); line-height: 1.1; margin-bottom: .8rem;
+}
+.sec-title em { font-style: italic; font-weight: 400; }
+.sec-title-white { color: var(--white); }
+.sec-lead { font-size: .93rem; color: var(--text-sec); line-height: 1.8; max-width: 580px; }
+.sec-lead-white { color: rgba(255,255,255,.55); }
+
+.sec-hdr {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+}
+.sec-hdr-left {}
+
+.link-see-all {
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); cursor: pointer;
+  display: flex; align-items: center; gap: .4rem; transition: color .15s; white-space: nowrap;
+}
+.link-see-all:hover { color: var(--gold-lt); }
+
+.divider { height: 1px; background: var(--border-xl); margin: 2.5rem 0; }
+.divider-gold { height: 1px; background: var(--gold-line); margin: 2rem 0; }
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero {
+  background: var(--navy); position: relative; overflow: hidden;
+  padding: 5rem var(--pad) 5rem;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=55') center 40% / cover no-repeat;
+  opacity: .1; filter: grayscale(30%);
+}
+.hero-gold-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold) 40%, var(--gold-lt) 60%, transparent);
+}
+.hero-inner {
+  max-width: var(--max-w); margin: 0 auto; position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 360px; gap: 3.5rem; align-items: center;
+}
+.hero-label {
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.hero-label::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+.hero-title {
+  font-family: var(--font-serif); font-size: clamp(2.6rem, 5.5vw, 4rem);
+  font-weight: 700; color: var(--white); line-height: 1.06;
+  letter-spacing: -.015em; margin-bottom: 1.25rem;
+}
+.hero-title em { font-style: italic; font-weight: 400; color: rgba(255,255,255,.72); }
+.hero-desc { font-size: .94rem; color: rgba(255,255,255,.58); line-height: 1.8; max-width: 520px; margin-bottom: 2.25rem; }
+.hero-ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn-gold {
+  background: var(--gold); color: var(--navy);
+  font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  padding: .85rem 1.75rem; border: none; border-radius: var(--r4);
+  transition: background .15s, transform .12s; cursor: pointer;
+}
+.btn-gold:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.btn-outline-white {
+  background: transparent; color: rgba(255,255,255,.75);
+  font-size: .8rem; font-weight: 500; letter-spacing: .02em;
+  padding: .85rem 1.75rem; border: 1px solid rgba(255,255,255,.2); border-radius: var(--r4);
+  transition: border-color .15s, color .15s; cursor: pointer;
+}
+.btn-outline-white:hover { border-color: rgba(255,255,255,.5); color: var(--white); }
+
+.hero-stats {
+  display: flex; border-top: 1px solid rgba(255,255,255,.1); padding-top: 2rem;
+}
+.hero-stat {
+  flex: 1; padding-right: 1.5rem; border-right: 1px solid rgba(255,255,255,.09);
+}
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat:last-child { border-right: none; }
+.hero-stat-val {
+  font-family: var(--font-serif); font-size: 2rem; font-weight: 700;
+  color: var(--white); line-height: 1;
+}
+.hero-stat-lbl {
+  font-family: var(--font-mono); font-size: .55rem; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255,255,255,.35); margin-top: .3rem;
+}
+
+/* Hero enquiry card */
+.hero-card {
+  background: var(--white); border-radius: var(--r6); box-shadow: var(--sh-lg);
+  padding: 1.75rem; position: relative;
+}
+.hero-card::before {
+  content: ''; position: absolute; top: 0; left: 1.5rem; right: 1.5rem; height: 2px;
+  background: var(--gold); border-radius: 0 0 2px 2px;
+}
+.hero-card-title {
+  font-family: var(--font-serif); font-size: 1rem; font-weight: 700;
+  color: var(--navy); margin-bottom: .2rem;
+}
+.hero-card-sub {
+  font-size: .75rem; color: var(--text-dim); margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem; border-bottom: 1px solid var(--border-xl);
+}
+.hc-field { margin-bottom: .9rem; }
+.hc-label {
+  font-family: var(--font-mono); font-size: .54rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; display: block;
+}
+.hc-input, .hc-select {
+  width: 100%; padding: .6rem .85rem; border: 1px solid var(--border);
+  border-radius: var(--r4); font-family: var(--font-sans); font-size: .83rem;
+  color: var(--text-pri); background: var(--off-white); outline: none;
+  transition: border-color .15s, background .15s;
+}
+.hc-input:focus, .hc-select:focus { border-color: var(--navy); background: var(--white); }
+.hc-submit {
+  width: 100%; padding: .78rem; background: var(--navy); color: var(--white);
+  font-size: .8rem; font-weight: 600; letter-spacing: .02em; border: none;
+  border-radius: var(--r4); cursor: pointer; transition: background .15s; margin-top: .35rem;
+}
+.hc-submit:hover { background: var(--slate); }
+.hc-note { font-size: .68rem; color: var(--text-dim); text-align: center; margin-top: .7rem; line-height: 1.5; }
+
+/* ═══════════════════════════════════════════════════════
+   TRUST STRIP
+═══════════════════════════════════════════════════════ */
+.trust-strip {
+  background: var(--white); border-bottom: 1px solid var(--border-xl); padding: 1rem var(--pad);
+}
+.trust-strip-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .35rem 1.2rem; border-right: 1px solid var(--border-xl);
+}
+.trust-item:last-child { border-right: none; }
+.trust-check { color: var(--gold); font-size: .75rem; font-weight: 700; }
+.trust-lbl { font-size: .73rem; font-weight: 500; color: var(--text-sec); white-space: nowrap; }
+
+/* ═══════════════════════════════════════════════════════
+   VESSEL CARDS
+═══════════════════════════════════════════════════════ */
+.vessels-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem;
+}
+.vcard {
+  background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6);
+  overflow: hidden; box-shadow: var(--sh-sm); cursor: pointer;
+  transition: box-shadow .25s, transform .25s, border-color .2s;
+  display: flex; flex-direction: column;
+}
+.vcard:hover { box-shadow: var(--sh-hover); transform: translateY(-2px); border-color: var(--border); }
+.vcard-img { position: relative; height: 215px; overflow: hidden; background: var(--pearl); flex-shrink: 0; }
+.vcard-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .55s; filter: brightness(.96) contrast(1.03);
+}
+.vcard:hover .vcard-img img { transform: scale(1.04); }
+.vcard-badges { position: absolute; top: .8rem; left: .8rem; display: flex; gap: .35rem; }
+.badge {
+  font-family: var(--font-mono); font-size: .52rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .28rem .6rem; border-radius: var(--r2);
+}
+.badge-dark { background: rgba(10,22,40,.82); color: rgba(255,255,255,.88); backdrop-filter: blur(4px); }
+.badge-sale { background: var(--blue-bg); color: var(--blue-sale); }
+.badge-charter { background: var(--green-bg); color: var(--green-ok); }
+.badge-verified {
+  position: absolute; top: .8rem; right: .8rem; background: rgba(255,255,255,.94);
+  color: var(--green-ok); font-family: var(--font-mono); font-size: .5rem;
+  letter-spacing: .09em; text-transform: uppercase; padding: .25rem .55rem;
+  border-radius: var(--r2); box-shadow: var(--sh-xs);
+  display: flex; align-items: center; gap: .3rem;
+}
+.badge-verified::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green-ok);
+}
+.vcard-body { padding: 1.2rem 1.2rem .95rem; flex: 1; display: flex; flex-direction: column; }
+.vcard-id {
+  font-family: var(--font-mono); font-size: .55rem; letter-spacing: .14em;
+  color: var(--muted); margin-bottom: .28rem; text-transform: uppercase;
+}
+.vcard-name {
+  font-family: var(--font-serif); font-size: 1.14rem; font-weight: 700;
+  color: var(--navy); line-height: 1.2; margin-bottom: .18rem;
+}
+.vcard-loc { font-size: .74rem; color: var(--text-dim); margin-bottom: .9rem; }
+.vcard-specs {
+  display: flex; border: 1px solid var(--border-xl); border-radius: var(--r4);
+  overflow: hidden; background: var(--pearl); margin-bottom: .95rem;
+}
+.vcard-spec { flex: 1; padding: .48rem .55rem; border-right: 1px solid var(--border-xl); text-align: center; }
+.vcard-spec:last-child { border-right: none; }
+.vs-lbl { font-family: var(--font-mono); font-size: .48rem; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); margin-bottom: .12rem; }
+.vs-val { font-size: .78rem; font-weight: 600; color: var(--text-pri); }
+.vcard-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: .9rem; border-top: 1px solid var(--border-xl); margin-top: auto;
+}
+.vcard-price .vp-lbl { font-family: var(--font-mono); font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .1rem; }
+.vcard-price .vp-val { font-size: .82rem; font-weight: 600; color: var(--text-pri); }
+.vcard-price .vp-guide { font-family: var(--font-serif); font-size: 1rem; color: var(--gold); font-weight: 700; }
+.vcard-actions { display: flex; gap: .45rem; align-items: center; }
+.btn-enquire {
+  background: var(--navy); color: var(--white); font-size: .7rem; font-weight: 600;
+  letter-spacing: .02em; padding: .48rem .95rem; border: none; border-radius: var(--r4);
+  cursor: pointer; transition: background .15s; white-space: nowrap;
+}
+.btn-enquire:hover { background: var(--slate); }
+.link-view { font-size: .7rem; color: var(--text-dim); cursor: pointer; transition: color .15s; white-space: nowrap; }
+.link-view:hover { color: var(--navy); }
+
+/* ═══════════════════════════════════════════════════════
+   HOME SPECIFIC
+═══════════════════════════════════════════════════════ */
+.steps-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border-xl); border-radius: var(--r6);
+  overflow: hidden; background: var(--white); box-shadow: var(--sh-sm); margin-top: 2.5rem;
+}
+.step { padding: 2rem 1.75rem; border-right: 1px solid var(--border-xl); }
+.step:last-child { border-right: none; }
+.step-n { font-family: var(--font-serif); font-size: 3rem; color: var(--border-xl); line-height: 1; margin-bottom: .9rem; }
+.step-bar { width: 28px; height: 2px; background: var(--gold); margin-bottom: .9rem; }
+.step-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .55rem; }
+.step-desc { font-size: .82rem; color: var(--text-sec); line-height: 1.72; }
+
+.ports-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--border-xl); border: 1px solid var(--border-xl); border-radius: var(--r6);
+  overflow: hidden; margin-top: 2.5rem;
+}
+.port-cell { background: var(--white); padding: 1.25rem 1rem; text-align: center; }
+.port-name { font-family: var(--font-serif); font-size: .9rem; font-weight: 700; color: var(--navy); margin-bottom: .2rem; }
+.port-country { font-family: var(--font-mono); font-size: .53rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.stds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.std-card { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); padding: 1.75rem; box-shadow: var(--sh-sm); }
+.std-card-title { font-family: var(--font-serif); font-size: .98rem; font-weight: 700; color: var(--navy); padding-bottom: .9rem; margin-bottom: .9rem; border-bottom: 1px solid var(--border-xl); }
+.std-items { display: flex; flex-direction: column; gap: .6rem; }
+.std-item { display: flex; gap: .6rem; align-items: flex-start; font-size: .81rem; color: var(--text-sec); line-height: 1.5; }
+.std-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: .42rem; }
+
+/* ═══════════════════════════════════════════════════════
+   MARKETPLACE
+═══════════════════════════════════════════════════════ */
+.mkt-wrap {
+  max-width: var(--max-w); margin: 0 auto; padding: 2rem var(--pad);
+  display: grid; grid-template-columns: 268px 1fr; gap: 2rem; align-items: start;
+}
+.filter-panel {
+  background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6);
+  box-shadow: var(--sh-sm); position: sticky; top: calc(var(--bar-h) + 1.5rem);
+  max-height: calc(100vh - var(--bar-h) - 3rem); overflow-y: auto;
+}
+.filter-head {
+  padding: .95rem 1.2rem; border-bottom: 1px solid var(--border-xl);
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; background: var(--white); z-index: 2;
+}
+.filter-head-lbl {
+  font-family: var(--font-mono); font-size: .58rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text-sec);
+}
+.filter-reset { font-size: .7rem; color: var(--gold); background: none; border: none; cursor: pointer; font-family: var(--font-sans); transition: color .15s; }
+.filter-reset:hover { color: var(--gold-lt); }
+.filter-body { padding: 1.2rem; }
+.filter-group { margin-bottom: 1.4rem; }
+.filter-group:last-child { margin-bottom: 0; }
+.fg-title { font-size: .77rem; font-weight: 600; color: var(--text-pri); padding-bottom: .5rem; margin-bottom: .6rem; border-bottom: 1px solid var(--border-xl); }
+.fg-opts { display: flex; flex-direction: column; gap: .4rem; }
+.fg-opt { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--text-sec); cursor: pointer; padding: .18rem 0; }
+.fg-opt input { accent-color: var(--navy); width: 13px; height: 13px; cursor: pointer; flex-shrink: 0; }
+.fg-opt:hover { color: var(--navy); }
+.filter-toggle-row { display: flex; align-items: center; justify-content: space-between; font-size: .8rem; color: var(--text-sec); }
+.toggle { width: 36px; height: 20px; border-radius: 10px; background: var(--border); cursor: pointer; position: relative; transition: background .2s; flex-shrink: 0; }
+.toggle.on { background: var(--navy); }
+.toggle::after { content: ''; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--white); top: 3px; left: 3px; transition: left .2s; box-shadow: var(--sh-xs); }
+.toggle.on::after { left: 19px; }
+.filter-req-cta { margin: 1.2rem; padding: 1rem; background: var(--pearl); border: 1px solid var(--border-xl); border-radius: var(--r4); text-align: center; }
+.filter-req-txt { font-size: .76rem; color: var(--text-dim); margin-bottom: .65rem; line-height: 1.5; }
+.filter-req-btn { width: 100%; padding: .5rem; background: var(--navy); color: var(--white); font-size: .72rem; font-weight: 600; border: none; border-radius: var(--r4); cursor: pointer; transition: background .15s; }
+.filter-req-btn:hover { background: var(--slate); }
+
+.results-bar {
+  background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6);
+  padding: .85rem 1rem; margin-bottom: 1.2rem; box-shadow: var(--sh-sm);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.search-wrap {
+  display: flex; flex: 1; max-width: 360px;
+  border: 1px solid var(--border); border-radius: var(--r4); overflow: hidden;
+}
+.search-wrap input {
+  flex: 1; padding: .52rem .85rem; border: none; outline: none;
+  font-family: var(--font-sans); font-size: .83rem; color: var(--text-pri); background: var(--off-white);
+}
+.search-wrap button {
+  padding: .52rem .9rem; background: var(--navy); color: var(--white); border: none;
+  font-size: .7rem; font-weight: 600; cursor: pointer; transition: background .15s;
+}
+.search-wrap button:hover { background: var(--slate); }
+.results-meta { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.sort-sel { padding: .52rem .75rem; border: 1px solid var(--border); border-radius: var(--r4); font-family: var(--font-sans); font-size: .78rem; color: var(--text-sec); background: var(--off-white); outline: none; cursor: pointer; }
+
+.mobile-filter-btn { display: none; width: 100%; padding: .7rem; background: var(--navy); color: var(--white); font-size: .8rem; font-weight: 600; border: none; border-radius: var(--r4); margin-bottom: 1rem; align-items: center; justify-content: center; gap: .5rem; cursor: pointer; }
+.filter-drawer { display: none; position: fixed; inset: 0; z-index: 500; }
+.filter-drawer.open { display: flex; }
+.filter-drawer-bg { position: absolute; inset: 0; background: rgba(10,22,40,.48); backdrop-filter: blur(2px); }
+.filter-drawer-panel { position: absolute; bottom: 0; left: 0; right: 0; background: var(--white); border-radius: var(--r6) var(--r6) 0 0; max-height: 82vh; overflow-y: auto; }
+.filter-drawer-head { padding: 1.25rem var(--pad); border-bottom: 1px solid var(--border-xl); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--white); z-index: 2; }
+.drawer-close { width: 30px; height: 30px; border: 1px solid var(--border); border-radius: var(--r4); background: var(--white); cursor: pointer; font-size: .85rem; color: var(--text-sec); }
+.filter-drawer-body { padding: 1.25rem var(--pad); }
+
+/* ═══════════════════════════════════════════════════════
+   DETAIL PAGE
+═══════════════════════════════════════════════════════ */
+.detail-hdr { background: var(--navy); padding: 2.5rem var(--pad) 2rem; position: relative; }
+.detail-hdr::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--gold) 35%, var(--gold-lt) 65%, transparent); }
+.detail-hdr-inner { max-width: var(--max-w); margin: 0 auto; }
+.breadcrumb { font-family: var(--font-mono); font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.3); display: flex; gap: .5rem; align-items: center; margin-bottom: 1.2rem; }
+.breadcrumb a { color: rgba(255,255,255,.3); transition: color .15s; }
+.breadcrumb a:hover { color: rgba(255,255,255,.65); }
+.bc-sep { opacity: .3; }
+.detail-title { font-family: var(--font-serif); font-size: clamp(1.9rem, 4vw, 3.1rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: .9rem; }
+.detail-pills { display: flex; gap: .45rem; flex-wrap: wrap; }
+.d-pill { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; padding: .28rem .7rem; border-radius: var(--r4); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.5); }
+.d-pill-gold { border-color: rgba(184,146,42,.4); color: var(--gold); }
+
+.detail-body { max-width: var(--max-w); margin: 0 auto; padding: 2.5rem var(--pad); display: grid; grid-template-columns: 1fr 350px; gap: 2.5rem; align-items: start; }
+.gallery-main-img { width: 100%; height: 430px; object-fit: cover; border-radius: var(--r6); box-shadow: var(--sh-md); margin-bottom: .9rem; }
+.gallery-thumbs { display: flex; gap: .65rem; margin-bottom: 1.75rem; }
+.gallery-thumb { width: 108px; height: 70px; object-fit: cover; border-radius: var(--r4); cursor: pointer; opacity: .6; transition: opacity .15s; border: 2px solid transparent; flex-shrink: 0; }
+.gallery-thumb.active { opacity: 1; border-color: var(--gold); }
+.gallery-thumb:hover { opacity: .88; }
+
+.verified-bar { background: var(--green-bg); border: 1px solid var(--green-bd); border-radius: var(--r4); padding: .85rem 1.1rem; display: flex; align-items: center; gap: .8rem; margin-bottom: 1.75rem; }
+.verified-mark { width: 26px; height: 26px; border-radius: 50%; background: var(--green-ok); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: .7rem; font-weight: 700; flex-shrink: 0; }
+.verified-text h5 { font-size: .8rem; font-weight: 600; color: var(--green-ok); margin-bottom: .1rem; }
+.verified-text p { font-size: .74rem; color: var(--text-sec); }
+
+.detail-sec-title { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); padding-bottom: .65rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-xl); display: flex; align-items: center; gap: .6rem; }
+.detail-sec-title::before { content: ''; width: 14px; height: 1px; background: var(--gold); }
+.detail-desc { font-size: .87rem; color: var(--text-sec); line-height: 1.82; margin-bottom: 2rem; }
+.spec-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+.spec-table tr { border-bottom: 1px solid var(--border-xl); }
+.spec-table tr:last-child { border-bottom: none; }
+.spec-table td { padding: .68rem .9rem; font-size: .83rem; vertical-align: top; }
+.spec-table td:first-child { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); width: 37%; background: var(--pearl); }
+.spec-table td:last-child { color: var(--text-pri); font-weight: 500; }
+
+.brok-disclaimer { background: var(--pearl); border: 1px solid var(--border-xl); border-radius: var(--r4); padding: 1rem 1.2rem; margin-top: 2rem; }
+.brok-disclaimer p { font-size: .75rem; color: var(--text-dim); line-height: 1.65; }
+.brok-disclaimer strong { color: var(--text-sec); }
+
+/* Sticky CTA sidebar */
+.cta-panel { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); box-shadow: var(--sh-md); padding: 1.5rem; position: sticky; top: calc(var(--bar-h) + 1.5rem); }
+.cta-vessel-name { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: .15rem; }
+.cta-vessel-id { font-family: var(--font-mono); font-size: .55rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+.cta-price-blk { padding: .95rem; background: var(--pearl); border: 1px solid var(--border-xl); border-radius: var(--r4); margin-bottom: 1rem; text-align: center; }
+.cta-plbl { font-family: var(--font-mono); font-size: .52rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .2rem; }
+.cta-pval { font-size: .86rem; font-weight: 600; color: var(--text-pri); }
+.cta-guide { font-family: var(--font-serif); font-size: 1.35rem; color: var(--gold); font-weight: 700; }
+.cta-pnote { font-size: .68rem; color: var(--text-dim); margin-top: .2rem; }
+.cta-btn { width: 100%; padding: .75rem; font-size: .78rem; font-weight: 600; border-radius: var(--r4); cursor: pointer; margin-bottom: .45rem; border: none; transition: all .15s; }
+.cta-btn-pri { background: var(--navy); color: var(--white); }
+.cta-btn-pri:hover { background: var(--slate); }
+.cta-btn-sec { background: var(--white); color: var(--navy); border: 1px solid var(--border) !important; }
+.cta-btn-sec:hover { background: var(--pearl); }
+.cta-nda { margin-top: 1rem; padding: .85rem; background: var(--gold-tint); border: 1px solid var(--gold-line); border-radius: var(--r4); }
+.cta-nda-lbl { font-family: var(--font-mono); font-size: .52rem; letter-spacing: .13em; text-transform: uppercase; color: var(--gold); margin-bottom: .28rem; }
+.cta-nda-txt { font-size: .73rem; color: var(--text-sec); line-height: 1.55; }
+.cta-divider { height: 1px; background: var(--border-xl); margin: 1rem 0; }
+.cta-contact { font-size: .74rem; color: var(--text-dim); line-height: 1.6; }
+.cta-contact b { color: var(--text-sec); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════
+   BROKERAGE DESK PAGE
+═══════════════════════════════════════════════════════ */
+.brok-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.brok-card { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); padding: 1.75rem; box-shadow: var(--sh-sm); }
+.brok-card-step { font-family: var(--font-mono); font-size: .57rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .45rem; }
+.brok-card-title { font-family: var(--font-serif); font-size: 1.02rem; font-weight: 700; color: var(--navy); padding-bottom: .85rem; margin-bottom: .85rem; border-bottom: 1px solid var(--border-xl); }
+.brok-list { display: flex; flex-direction: column; gap: .55rem; }
+.brok-list li { font-size: .81rem; color: var(--text-sec); line-height: 1.55; padding-left: 1rem; position: relative; }
+.brok-list li::before { content: ''; position: absolute; left: 0; top: .52em; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+
+.process-table { width: 100%; border-collapse: collapse; margin-top: 2rem; box-shadow: var(--sh-sm); border-radius: var(--r6); overflow: hidden; }
+.process-table th { background: var(--navy); color: rgba(255,255,255,.7); font-family: var(--font-mono); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; padding: .85rem 1rem; text-align: left; font-weight: 400; }
+.process-table td { padding: .85rem 1rem; font-size: .83rem; color: var(--text-sec); border-bottom: 1px solid var(--border-xl); background: var(--white); vertical-align: top; line-height: 1.6; }
+.process-table td:first-child { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-pri); font-weight: 600; background: var(--pearl); width: 25%; }
+.process-table tr:last-child td { border-bottom: none; }
+
+.policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.policy-block { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); padding: 1.75rem; box-shadow: var(--sh-sm); }
+.policy-block-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: .9rem; padding-bottom: .8rem; border-bottom: 1px solid var(--border-xl); }
+.policy-block p { font-size: .83rem; color: var(--text-sec); line-height: 1.75; margin-bottom: .65rem; }
+.policy-block p:last-child { margin-bottom: 0; }
+
+.workflow-steps { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border-xl); border-radius: var(--r6); overflow: hidden; box-shadow: var(--sh-sm); }
+.ws-row { display: grid; grid-template-columns: 72px 1fr; background: var(--white); border-bottom: 1px solid var(--border-xl); }
+.ws-row:last-child { border-bottom: none; }
+.ws-num { background: var(--navy); display: flex; align-items: center; justify-content: center; }
+.ws-num span { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+.ws-content { padding: 1.25rem 1.5rem; }
+.ws-title { font-family: var(--font-serif); font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: .3rem; }
+.ws-desc { font-size: .82rem; color: var(--text-sec); line-height: 1.7; }
+
+/* ═══════════════════════════════════════════════════════
+   SERVICES PAGE
+═══════════════════════════════════════════════════════ */
+.svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.svc-card { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); padding: 2rem; box-shadow: var(--sh-sm); transition: box-shadow .2s; }
+.svc-card:hover { box-shadow: var(--sh-md); }
+.svc-card-num { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+.svc-card-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: .75rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border-xl); }
+.svc-card-body { font-size: .84rem; color: var(--text-sec); line-height: 1.78; }
+.svc-card-body p { margin-bottom: .6rem; }
+.svc-card-body p:last-child { margin-bottom: 0; }
+
+.svc-process { margin-top: .9rem; display: flex; flex-direction: column; gap: .35rem; }
+.svc-process li { font-size: .79rem; color: var(--text-dim); padding-left: .9rem; position: relative; line-height: 1.5; }
+.svc-process li::before { content: ''; position: absolute; left: 0; top: .52em; width: 3px; height: 3px; border-radius: 50%; background: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════
+   RESOURCES PAGE
+═══════════════════════════════════════════════════════ */
+.resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
+.resource-card { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); padding: 1.5rem; box-shadow: var(--sh-sm); display: flex; flex-direction: column; transition: box-shadow .2s; }
+.resource-card:hover { box-shadow: var(--sh-md); }
+.resource-type { font-family: var(--font-mono); font-size: .54rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+.resource-title { font-family: var(--font-serif); font-size: .95rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+.resource-desc { font-size: .79rem; color: var(--text-sec); line-height: 1.65; flex: 1; margin-bottom: 1rem; }
+.resource-footer { display: flex; align-items: center; justify-content: space-between; padding-top: .9rem; border-top: 1px solid var(--border-xl); }
+.resource-format { font-family: var(--font-mono); font-size: .52rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.resource-btn { font-size: .72rem; font-weight: 600; color: var(--navy); background: var(--pearl); border: 1px solid var(--border); border-radius: var(--r4); padding: .38rem .8rem; cursor: pointer; transition: background .15s; }
+.resource-btn:hover { background: var(--border-xl); }
+.resource-nda-note { background: var(--gold-tint); border: 1px solid var(--gold-line); border-radius: var(--r4); padding: 1rem 1.25rem; margin-top: 2rem; }
+.resource-nda-note p { font-size: .8rem; color: var(--text-sec); line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════════
+   CLIENT ACCESS PAGE
+═══════════════════════════════════════════════════════ */
+.client-access-wrap { display: flex; align-items: center; justify-content: center; min-height: 60vh; padding: 3rem var(--pad); }
+.client-login-card { background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6); box-shadow: var(--sh-lg); padding: 2.5rem; width: 100%; max-width: 420px; text-align: center; }
+.client-login-card::before { content: ''; display: block; width: 40px; height: 2px; background: var(--gold); margin: 0 auto 1.5rem; }
+.client-card-title { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: .4rem; }
+.client-card-sub { font-size: .8rem; color: var(--text-dim); margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-xl); line-height: 1.6; }
+.client-secure-note { background: var(--pearl); border: 1px solid var(--border-xl); border-radius: var(--r4); padding: .85rem 1rem; margin-bottom: 1.5rem; font-size: .76rem; color: var(--text-sec); line-height: 1.6; }
+.client-secure-note b { color: var(--navy); }
+.client-form-field { margin-bottom: .9rem; text-align: left; }
+.client-form-field label { font-family: var(--font-mono); font-size: .54rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; display: block; }
+.client-form-field input { width: 100%; padding: .65rem .85rem; border: 1px solid var(--border); border-radius: var(--r4); font-family: var(--font-sans); font-size: .83rem; color: var(--text-pri); background: var(--off-white); outline: none; transition: border-color .15s; }
+.client-form-field input:focus { border-color: var(--navy); background: var(--white); }
+.client-login-btn { width: 100%; padding: .8rem; background: var(--navy); color: var(--white); font-size: .82rem; font-weight: 600; border: none; border-radius: var(--r4); cursor: pointer; transition: background .15s; margin-top: .35rem; }
+.client-login-btn:hover { background: var(--slate); }
+.client-disclaimer { font-size: .7rem; color: var(--muted); margin-top: 1rem; line-height: 1.55; }
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT + CONTACT PAGES
+═══════════════════════════════════════════════════════ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.value-stack { border: 1px solid var(--border-xl); border-radius: var(--r6); overflow: hidden; box-shadow: var(--sh-sm); }
+.vrow { padding: 1.1rem 1.35rem; border-bottom: 1px solid var(--border-xl); background: var(--white); display: flex; gap: .85rem; align-items: flex-start; }
+.vrow:last-child { border-bottom: none; }
+.vrow-n { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .12em; color: var(--gold); flex-shrink: 0; padding-top: .15rem; }
+.vrow-h4 { font-size: .84rem; font-weight: 600; color: var(--navy); margin-bottom: .2rem; }
+.vrow-p { font-size: .77rem; color: var(--text-dim); line-height: 1.55; }
+
+.contact-info-card { border: 1px solid var(--border-xl); border-radius: var(--r6); overflow: hidden; box-shadow: var(--sh-sm); }
+.cic-row { padding: 1.1rem 1.35rem; border-bottom: 1px solid var(--border-xl); background: var(--white); }
+.cic-row:last-child { border-bottom: none; }
+.cic-lbl { font-family: var(--font-mono); font-size: .54rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .28rem; }
+.cic-val { font-size: .9rem; font-weight: 600; color: var(--text-pri); }
+.cic-sub { font-size: .74rem; color: var(--text-dim); margin-top: .12rem; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.f-field { display: flex; flex-direction: column; gap: .3rem; }
+.f-field.full { grid-column: 1/-1; }
+.f-label { font-family: var(--font-mono); font-size: .54rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.f-input, .f-select, .f-textarea { padding: .68rem .88rem; border: 1px solid var(--border); border-radius: var(--r4); font-family: var(--font-sans); font-size: .84rem; color: var(--text-pri); background: var(--white); outline: none; transition: border-color .15s; }
+.f-input:focus, .f-select:focus, .f-textarea:focus { border-color: var(--navy); }
+.f-textarea { min-height: 110px; resize: vertical; }
+.form-note { padding: .9rem 1.1rem; background: var(--gold-tint); border: 1px solid var(--gold-line); border-radius: var(--r4); font-size: .78rem; color: var(--text-sec); line-height: 1.65; margin-bottom: 1.2rem; }
+.btn-submit { background: var(--navy); color: var(--white); padding: .82rem 2rem; font-size: .82rem; font-weight: 600; border: none; border-radius: var(--r4); cursor: pointer; transition: background .15s; }
+.btn-submit:hover { background: var(--slate); }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.05); padding: 4rem var(--pad) 2rem; }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.3fr; gap: 3rem; padding-bottom: 3rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+.footer-brand-name { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; color: var(--white); margin-bottom: .2rem; }
+.footer-brand-sub { font-family: var(--font-mono); font-size: .5rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .9rem; }
+.footer-brand-desc { font-size: .78rem; color: rgba(255,255,255,.38); line-height: 1.72; max-width: 220px; }
+.footer-col-title { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: .5rem; }
+.footer-links a { font-size: .79rem; color: rgba(255,255,255,.38); cursor: pointer; transition: color .15s; }
+.footer-links a:hover { color: rgba(255,255,255,.72); }
+.footer-contact-line { font-size: .79rem; color: rgba(255,255,255,.38); margin-bottom: .42rem; line-height: 1.5; }
+.footer-contact-line b { color: rgba(255,255,255,.62); font-weight: 400; }
+.footer-bottom { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.footer-copy { font-size: .7rem; color: rgba(255,255,255,.25); line-height: 1.7; }
+.footer-img-note { font-family: var(--font-mono); font-size: .52rem; letter-spacing: .08em; color: rgba(255,255,255,.18); text-align: right; line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════
+   NOTIFICATION TOAST
+═══════════════════════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 9999;
+  background: var(--white); border: 1px solid var(--border-xl); border-radius: var(--r6);
+  box-shadow: var(--sh-lg); padding: 1.1rem 1.4rem; max-width: 300px;
+  border-left: 3px solid var(--green-ok);
+  transform: translateY(8px); opacity: 0; pointer-events: none;
+  transition: all .3s ease;
+}
+.toast.show { transform: translateY(0); opacity: 1; pointer-events: all; }
+.toast-title { font-size: .82rem; font-weight: 600; color: var(--green-ok); margin-bottom: .22rem; }
+.toast-msg { font-size: .77rem; color: var(--text-sec); line-height: 1.5; }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .nav-links { display: none; }
+  .nav-right .btn-ghost, .nav-right .btn-primary-sm { display: none; }
+  .nav-mobile-toggle { display: flex; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .mkt-wrap { grid-template-columns: 1fr; }
+  .filter-panel { display: none; }
+  .mobile-filter-btn { display: flex; }
+  .detail-body { grid-template-columns: 1fr; }
+  .brok-grid-3 { grid-template-columns: 1fr 1fr; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr 1fr; }
+  .policy-grid { grid-template-columns: 1fr; }
+  .stds-grid { grid-template-columns: 1fr; }
+  .steps-row { grid-template-columns: 1fr; }
+  .step { border-right: none; border-bottom: 1px solid var(--border-xl); }
+  .step:last-child { border-bottom: none; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+  .ports-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  :root { --pad: 1.25rem; }
+  .ib-right { display: none; }
+  .vessels-grid { grid-template-columns: 1fr; }
+  .brok-grid-3 { grid-template-columns: 1fr; }
+  .resources-grid { grid-template-columns: 1fr; }
+  .stds-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .workflow-steps .ws-row { grid-template-columns: 56px 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TEST SITE LABEL BAR
+═══════════════════════════════════════════════════════ */
+.test-bar {
+  height: var(--test-h);
+  background: var(--navy-lt);
+  border-bottom: 1px solid rgba(184,146,42,.18);
+  position: fixed;
+  top: calc(var(--info-h) + var(--nav-h));
+  left: 0; right: 0;
+  z-index: 298;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.test-bar-text {
+  font-family: var(--font-mono);
+  font-size: .5rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(184,146,42,.5);
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title">Enquiry Received</div>
+  <div class="toast-msg">A DeltaWind Solutions representative will be in contact within 24 to 48 hours.</div>
+</div>
+
+<!-- ═══════════════ INFO BAR ═══════════════ -->
+<div class="info-bar">
+  <div class="info-bar-inner">
+    <div class="ib-left">
+      <div class="ib-item"><div class="ib-dot"></div>Verified Brokerage Desk</div>
+      <div class="ib-sep"></div>
+      <div class="ib-item">Nigeria &amp; West Africa</div>
+      <div class="ib-sep"></div>
+      <div class="ib-item">Enquiries: <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771e1911183713121b0316001e191304181b02031e1819045914181a">[email&#160;protected]</a></b></div>
+    </div>
+    <div class="ib-right">
+      <div class="ib-item">Response: <b>24 – 48 Hours</b></div>
+      <div class="ib-sep"></div>
+      <div class="ib-item">WhatsApp: <b>+234 XXX XXX XXXX</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="showPage('home')">
+      <div class="nav-brand-name">VesselPort</div>
+      <div class="nav-brand-sub">by DeltaWind Solutions</div>
+    </div>
+    <div class="nav-links">
+      <a id="nav-home"      onclick="showPage('home')"      class="nav-active">Home</a>
+      <a id="nav-vessels"   onclick="showPage('vessels')">Marketplace</a>
+      <a id="nav-brokerage" onclick="showPage('brokerage')">Brokerage Desk</a>
+      <a id="nav-services"  onclick="showPage('services')">Services</a>
+      <a id="nav-resources" onclick="showPage('resources')">Resources</a>
+      <a id="nav-list"      onclick="showPage('list')">List a Vessel</a>
+      <a id="nav-contact"   onclick="showPage('contact')">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-client" onclick="showPage('client')">Client Access</button>
+      <button class="btn-primary-sm" onclick="showPage('contact')">Submit Enquiry</button>
+    </div>
+    <button class="nav-mobile-toggle" onclick="toggleMobileNav()" id="mob-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="test-bar"><span class="test-bar-text">Test Site &mdash; For Demonstration Purposes Only</span></div>
+<div class="mobile-nav-drawer" id="mob-drawer">
+  <div class="mobile-nav-links">
+    <a onclick="showPage('home');closeMobileNav()">Home</a>
+    <a onclick="showPage('vessels');closeMobileNav()">Marketplace</a>
+    <a onclick="showPage('brokerage');closeMobileNav()">Brokerage Desk</a>
+    <a onclick="showPage('services');closeMobileNav()">Services</a>
+    <a onclick="showPage('resources');closeMobileNav()">Resources</a>
+    <a onclick="showPage('list');closeMobileNav()">List a Vessel</a>
+    <a onclick="showPage('contact');closeMobileNav()">Contact</a>
+    <a onclick="showPage('client');closeMobileNav()">Client Access</a>
+  </div>
+  <button class="btn-primary-sm" style="width:100%" onclick="showPage('contact');closeMobileNav()">Submit Enquiry</button>
+</div>
+
+<!-- MOBILE FILTER DRAWER -->
+<div class="filter-drawer" id="filterDrawer">
+  <div class="filter-drawer-bg" onclick="closeFilterDrawer()"></div>
+  <div class="filter-drawer-panel">
+    <div class="filter-drawer-head">
+      <span style="font-weight:600;font-size:.9rem;color:var(--navy)">Filter Listings</span>
+      <button class="drawer-close" onclick="closeFilterDrawer()">&#10005;</button>
+    </div>
+    <div class="filter-drawer-body" id="drawer-filter-body"></div>
+    <div style="padding:1rem var(--pad) 1.5rem">
+      <button class="filter-req-btn" style="width:100%;padding:.7rem" onclick="closeFilterDrawer()">Apply Filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gold-bar"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-label">Verified Marine Brokerage</div>
+        <h1 class="hero-title">
+          Commercial Vessel<br>
+          <em>Sales, Charter</em><br>
+          &amp; Asset Advisory
+        </h1>
+        <p class="hero-desc">VesselPort is the structured brokerage marketplace of DeltaWind Solutions. We facilitate verified commercial vessel transactions for offshore operators, port authorities, shipping companies and marine contractors across Nigeria, West Africa and internationally.</p>
+        <div class="hero-ctas">
+          <button class="btn-gold" onclick="showPage('vessels')">Browse Listings</button>
+          <button class="btn-outline-white" onclick="showPage('brokerage')">Brokerage Process</button>
+          <button class="btn-outline-white" onclick="showPage('services')">Our Services</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="hero-stat-val">24</div><div class="hero-stat-lbl">Active Listings</div></div>
+          <div class="hero-stat" style="padding-left:1.5rem"><div class="hero-stat-val">8+</div><div class="hero-stat-lbl">Vessel Classes</div></div>
+          <div class="hero-stat" style="padding-left:1.5rem"><div class="hero-stat-val">KYC</div><div class="hero-stat-lbl">Verified Platform</div></div>
+          <div class="hero-stat" style="padding-left:1.5rem"><div class="hero-stat-val">NDA</div><div class="hero-stat-lbl">Default Policy</div></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-title">Submit an Enquiry</div>
+        <p class="hero-card-sub">Vessel purchase, charter or requirement — handled by our brokerage desk.</p>
+        <form onsubmit="toast();return false;">
+          <div class="hc-field"><label class="hc-label">Full Name</label><input class="hc-input" type="text" placeholder="Your full name" required></div>
+          <div class="hc-field"><label class="hc-label">Company</label><input class="hc-input" type="text" placeholder="Organisation name"></div>
+          <div class="hc-field"><label class="hc-label">Email Address</label><input class="hc-input" type="email" placeholder="contact@company.com" required></div>
+          <div class="hc-field"><label class="hc-label">Enquiry Type</label>
+            <select class="hc-select">
+              <option>Vessel Purchase Enquiry</option>
+              <option>Charter Request</option>
+              <option>Vessel Listing</option>
+              <option>Asset Valuation</option>
+              <option>General Brokerage</option>
+            </select>
+          </div>
+          <button type="submit" class="hc-submit">Submit to Brokerage Desk</button>
+          <p class="hc-note">All enquiries handled under commercial confidentiality. Response within 24–48 hours.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">Verified Listings</span></div>
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">Documentation Review</span></div>
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">Buyer Screening</span></div>
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">NDA-first Disclosure</span></div>
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">Inspection Coordination</span></div>
+      <div class="trust-item"><span class="trust-check">&#10003;</span><span class="trust-lbl">Escrow-ready Workflow</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-chip">Featured Listings</div>
+          <h2 class="sec-title">Currently Available Vessels</h2>
+        </div>
+        <span class="link-see-all" onclick="showPage('vessels')">View All Listings &rarr;</span>
+      </div>
+      <div class="vessels-grid" id="featured-grid"></div>
+    </div>
+  </div>
+
+  <div class="sec sec-sm sec-pearl">
+    <div class="sec-inner">
+      <div class="sec-chip">Process</div>
+      <h2 class="sec-title">How VesselPort Works</h2>
+      <p class="sec-lead">A structured, confidential brokerage process designed for commercial maritime transactions.</p>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-n">01</div><div class="step-bar"></div>
+          <div class="step-title">Enquiry &amp; Alignment</div>
+          <p class="step-desc">Submit your requirement or vessel enquiry. Our brokerage team reviews and matches buyers with verified sellers, all under initial confidentiality agreement.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div><div class="step-bar"></div>
+          <div class="step-title">Verification &amp; Documentation</div>
+          <p class="step-desc">Sellers provide ownership proof, class certificates and KYC documentation. Buyers submit a Letter of Intent, proof of funds and execute an NDA before receiving full specifications.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div><div class="step-bar"></div>
+          <div class="step-title">Inspection &amp; Closing</div>
+          <p class="step-desc">Qualified buyers proceed to physical or remote inspection coordinated by DeltaWind Solutions. Transaction structuring, MOA coordination and escrow guidance are provided through to closing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-hdr">
+        <div>
+          <div class="sec-chip">Market Focus</div>
+          <h2 class="sec-title">Nigeria &amp; West Africa</h2>
+          <p class="sec-lead">VesselPort serves primary maritime hubs across the West African coastal corridor, supporting both regional and international buyers and sellers.</p>
+        </div>
+      </div>
+      <div class="ports-grid">
+        <div class="port-cell"><div class="port-name">Lagos / Apapa</div><div class="port-country">Nigeria</div></div>
+        <div class="port-cell"><div class="port-name">Port Harcourt</div><div class="port-country">Nigeria</div></div>
+        <div class="port-cell"><div class="port-name">Warri</div><div class="port-country">Nigeria</div></div>
+        <div class="port-cell"><div class="port-name">Onne Port</div><div class="port-country">Nigeria</div></div>
+        <div class="port-cell"><div class="port-name">Tema</div><div class="port-country">Ghana</div></div>
+        <div class="port-cell"><div class="port-name">Abidjan</div><div class="port-country">Cote d'Ivoire</div></div>
+        <div class="port-cell"><div class="port-name">Dakar</div><div class="port-country">Senegal</div></div>
+        <div class="port-cell"><div class="port-name">Pointe-Noire</div><div class="port-country">Congo</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec sec-sm sec-pearl">
+    <div class="sec-inner">
+      <div class="sec-chip">Standards</div>
+      <h2 class="sec-title">Brokerage Standards</h2>
+      <p class="sec-lead">Minimum requirements for every VesselPort transaction.</p>
+      <div class="stds-grid">
+        <div class="std-card">
+          <div class="std-card-title">Seller Verification</div>
+          <div class="std-items">
+            <div class="std-item">Proof of vessel ownership or authorised representation</div>
+            <div class="std-item">Current vessel registry documentation</div>
+            <div class="std-item">Class and flag state certificate confirmation</div>
+            <div class="std-item">Corporate KYC and director identification</div>
+            <div class="std-item">Lien and encumbrance declaration</div>
+          </div>
+        </div>
+        <div class="std-card">
+          <div class="std-card-title">Buyer Screening</div>
+          <div class="std-items">
+            <div class="std-item">Letter of Intent (LOI) submission</div>
+            <div class="std-item">Proof of funds or financing confirmation</div>
+            <div class="std-item">Corporate entity and principal identification</div>
+            <div class="std-item">NDA execution prior to full specification disclosure</div>
+            <div class="std-item">Sanctions screening where applicable</div>
+          </div>
+        </div>
+        <div class="std-card">
+          <div class="std-card-title">Transaction Structure</div>
+          <div class="std-items">
+            <div class="std-item">Structured offer and counter-offer facilitation</div>
+            <div class="std-item">Inspection deposit arrangement where applicable</div>
+            <div class="std-item">Escrow-ready coordination with designated institutions</div>
+            <div class="std-item">Memorandum of Agreement (MOA) support</div>
+            <div class="std-item">Post-sale documentation and flag transfer guidance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════
+     MARKETPLACE PAGE
+══════════════════════════════════════════ -->
+<div id="page-vessels" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Marketplace</div>
+      <h1 class="ph-title">Commercial Vessel Listings</h1>
+      <p class="ph-desc">All listings are subject to documentation review. Enquiries are handled under commercial confidentiality as standard practice.</p>
+    </div>
+  </div>
+  <div class="mkt-wrap">
+    <div class="filter-panel" id="desktop-filter-panel">
+      <div class="filter-head">
+        <span class="filter-head-lbl">Filter Listings</span>
+        <button class="filter-reset" onclick="resetFilters()">Reset</button>
+      </div>
+      <div class="filter-body" id="desktop-filter-body"></div>
+      <div class="filter-req-cta">
+        <div class="filter-req-txt">Cannot find the vessel you require? Submit your operational requirement.</div>
+        <button class="filter-req-btn" onclick="showPage('contact')">Submit Requirement</button>
+      </div>
+    </div>
+    <div>
+      <button class="mobile-filter-btn" onclick="openFilterDrawer()">&#9776; Filter &amp; Sort Listings</button>
+      <div class="results-bar">
+        <div class="search-wrap">
+          <input type="text" id="search-input" placeholder="Search vessel, flag, type, location..." oninput="applyFilters()">
+          <button onclick="applyFilters()">Search</button>
+        </div>
+        <div class="results-meta" id="results-meta">Loading...</div>
+        <select class="sort-sel" onchange="applySort(this.value)">
+          <option value="default">Sort: Featured</option>
+          <option value="year-desc">Year: Newest First</option>
+          <option value="year-asc">Year: Oldest First</option>
+          <option value="loa-desc">LOA: Largest First</option>
+        </select>
+      </div>
+      <div class="vessels-grid" id="vessels-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DETAIL PAGE
+══════════════════════════════════════════ -->
+<div id="page-detail" class="page">
+  <div id="detail-root"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BROKERAGE DESK PAGE
+══════════════════════════════════════════ -->
+<div id="page-brokerage" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Brokerage Desk</div>
+      <h1 class="ph-title">Structured Marine<br><em>Brokerage Services</em></h1>
+      <p class="ph-desc">VesselPort operates a fully structured brokerage process from initial enquiry to transaction closing. All engagements are governed by commercial confidentiality agreements as a default position.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-chip">Sale Process</div>
+      <h2 class="sec-title">Structured Sale Brokerage</h2>
+      <p class="sec-lead" style="margin-bottom:2rem">The VesselPort sale process is structured to protect both seller and buyer interests throughout. The following framework applies to all vessel sale transactions facilitated through VesselPort.</p>
+      <div class="workflow-steps">
+        <div class="ws-row"><div class="ws-num"><span>01</span></div><div class="ws-content"><div class="ws-title">Initial Engagement</div><div class="ws-desc">The seller submits the vessel for review via VesselPort. The brokerage team assesses the submission against minimum documentation requirements. An initial assessment call is conducted to confirm suitability for listing.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>02</span></div><div class="ws-content"><div class="ws-title">Seller Verification</div><div class="ws-desc">Documentation review is conducted: proof of ownership, certificate of registry, class and flag state certificates, corporate KYC and director identification are required. Vessels with outstanding liens or encumbrances are not listed until disclosure is made and resolved.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>03</span></div><div class="ws-content"><div class="ws-title">Listing Publication</div><div class="ws-desc">Following verification, the vessel is published on VesselPort with a Verified Listing badge. Full technical specifications, survey reports and supporting documentation are held by VesselPort and made available only to qualified buyers upon NDA execution.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>04</span></div><div class="ws-content"><div class="ws-title">Buyer Qualification</div><div class="ws-desc">Interested buyers are required to submit a Letter of Intent, proof of funds and execute a Non-Disclosure Agreement before receiving full vessel documentation. Corporate entity and principal identification is collected as standard.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>05</span></div><div class="ws-content"><div class="ws-title">Inspection Coordination</div><div class="ws-desc">DeltaWind Solutions coordinates physical or remote survey and inspection at the vessel's current location. Buyers may appoint their own nominated surveyor. Inspection deposits may be required as a condition of access in some transactions.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>06</span></div><div class="ws-content"><div class="ws-title">Offer &amp; Negotiation</div><div class="ws-desc">Formal offers are submitted through VesselPort's brokerage desk. Counter-offers are relayed in a structured format. VesselPort does not represent both parties simultaneously unless both provide express written consent.</div></div></div>
+        <div class="ws-row"><div class="ws-num"><span>07</span></div><div class="ws-content"><div class="ws-title">Transaction &amp; Closing</div><div class="ws-desc">VesselPort provides Memorandum of Agreement coordination, escrow guidance and post-sale documentation support including flag transfer. All funds transfer sequences are outlined in advance and agreed in writing before closing commences.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec sec-sm sec-pearl">
+    <div class="sec-inner">
+      <div class="sec-chip">Charter Process</div>
+      <h2 class="sec-title">Charter Placement</h2>
+      <p class="sec-lead" style="margin-bottom:2rem">Charter enquiries are matched against available vessels in the VesselPort portfolio. The charter process follows a parallel verification structure to sale transactions, adapted for time-charter, voyage-charter and bareboat arrangements.</p>
+      <div class="brok-grid-3">
+        <div class="brok-card">
+          <div class="brok-card-step">Phase 01</div>
+          <div class="brok-card-title">Requirement Assessment</div>
+          <ul class="brok-list">
+            <li>Charterer submits operational requirement</li>
+            <li>Vessel type, duration and deployment area confirmed</li>
+            <li>Preliminary commercial parameters discussed</li>
+            <li>Matching vessels identified from active portfolio</li>
+            <li>Confidentiality agreement executed</li>
+          </ul>
+        </div>
+        <div class="brok-card">
+          <div class="brok-card-step">Phase 02</div>
+          <div class="brok-card-title">Vessel Presentation</div>
+          <ul class="brok-list">
+            <li>Full specifications provided to qualified charterer</li>
+            <li>Owner's terms and rate structure discussed</li>
+            <li>Crew arrangements and operational documentation reviewed</li>
+            <li>NIMASA and flag state compliance confirmed</li>
+            <li>Inspection or video survey arranged if required</li>
+          </ul>
+        </div>
+        <div class="brok-card">
+          <div class="brok-card-step">Phase 03</div>
+          <div class="brok-card-title">Charter Fixture</div>
+          <ul class="brok-list">
+            <li>Offer recap submitted through VesselPort</li>
+            <li>Charter Party or LOF terms agreed in writing</li>
+            <li>Delivery and redelivery conditions confirmed</li>
+            <li>Hire rate, advance and off-hire terms documented</li>
+            <li>Fixture confirmation issued by brokerage desk</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-chip">Compliance</div>
+      <h2 class="sec-title">Verification, KYC &amp; Compliance Standards</h2>
+      <p class="sec-lead" style="margin-bottom:2rem">VesselPort applies a structured compliance framework to all parties engaging in transactions through the platform. The following policies are enforced as a minimum standard.</p>
+      <div class="policy-grid">
+        <div class="policy-block">
+          <div class="policy-block-title">NDA-First Disclosure Policy</div>
+          <p>Full vessel specifications, class records, survey reports, ownership documentation and pricing guidance are withheld until a Non-Disclosure Agreement has been executed between the prospective buyer and DeltaWind Solutions.</p>
+          <p>This policy protects sellers from speculative enquiries and ensures that sensitive commercial information is disclosed only to parties who have demonstrated a genuine commercial interest in the transaction.</p>
+          <p>VesselPort does not publish full technical documentation on the listing page. Summary information is provided to facilitate initial interest. Full specifications are a privileged document.</p>
+        </div>
+        <div class="policy-block">
+          <div class="policy-block-title">KYC and KYB Compliance</div>
+          <p>All buyers and sellers engaging through VesselPort are subject to Know Your Customer (KYC) and Know Your Business (KYB) requirements. Individual identification and corporate registration documentation are required from all parties.</p>
+          <p>Ultimate Beneficial Owner (UBO) disclosure is required for all corporate entities participating in transactions above a defined threshold. VesselPort reserves the right to decline any engagement where documentation cannot be satisfactorily provided.</p>
+        </div>
+        <div class="policy-block">
+          <div class="policy-block-title">Sanctions Screening</div>
+          <p>VesselPort conducts sanctions screening checks on all transaction parties using publicly available OFAC, UN and EU sanctions lists as a minimum standard. Transactions involving sanctioned individuals, entities or vessels are declined without exception.</p>
+          <p>Vessel flag state compliance, IMO number verification and ownership history review are conducted as part of the listing verification process for all vessels published on VesselPort.</p>
+        </div>
+        <div class="policy-block">
+          <div class="policy-block-title">Escrow-Ready Workflow</div>
+          <p>VesselPort does not directly hold client funds. All transactions are facilitated on an escrow-ready basis, meaning that the fund transfer sequence, nominated institution and release conditions are agreed and documented before any payment instruction is issued.</p>
+          <p>VesselPort provides guidance on appropriate escrow structures for commercial vessel transactions and can facilitate introduction to suitable escrow service providers upon request from transaction parties.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-chip">Transaction Reference</div>
+      <h2 class="sec-title">Transaction Workflow Summary</h2>
+      <table class="process-table">
+        <thead><tr><th>Stage</th><th>Seller Action</th><th>Buyer Action</th><th>VesselPort Role</th></tr></thead>
+        <tbody>
+          <tr><td>01 — Listing</td><td>Submit vessel and documentation</td><td>—</td><td>Review, verify and publish listing</td></tr>
+          <tr><td>02 — Interest</td><td>Confirm availability</td><td>Register interest; submit LOI</td><td>Match and introduce under NDA</td></tr>
+          <tr><td>03 — Disclosure</td><td>Provide full documentation pack</td><td>Execute NDA; review full specs</td><td>Facilitate NDA; distribute documents</td></tr>
+          <tr><td>04 — Inspection</td><td>Grant vessel access</td><td>Appoint surveyor; conduct inspection</td><td>Coordinate logistics and access</td></tr>
+          <tr><td>05 — Offer</td><td>Review and counter as appropriate</td><td>Submit formal offer</td><td>Structure and relay offer formally</td></tr>
+          <tr><td>06 — Agreement</td><td>Execute MOA or Charter Party</td><td>Execute MOA or Charter Party</td><td>Coordinate and confirm fixture</td></tr>
+          <tr><td>07 — Closing</td><td>Transfer title and documents</td><td>Release funds per escrow conditions</td><td>Confirm delivery; issue closing notice</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SERVICES PAGE
+══════════════════════════════════════════ -->
+<div id="page-services" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Services</div>
+      <h1 class="ph-title">Marine Brokerage<br><em>Services</em></h1>
+      <p class="ph-desc">DeltaWind Solutions provides a comprehensive range of marine brokerage and asset advisory services to vessel owners, operators, charterers and investors across Nigeria, West Africa and internationally.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-chip">Service Offering</div>
+      <h2 class="sec-title">What We Provide</h2>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div class="svc-card-num">Service 01</div>
+          <div class="svc-card-title">Vessel Sale Brokerage</div>
+          <div class="svc-card-body">
+            <p>VesselPort provides structured sale brokerage for commercial vessels across all asset classes, from harbour tugs and crew boats to offshore supply vessels, container feeders and anchor handling tugs. All sale transactions are managed under a formal brokerage mandate covering marketing, buyer screening, documentation and closing.</p>
+            <p>Our sale brokerage service is exclusively focused on verified, documented transactions. Speculative or undocumented listings are not accepted onto the platform.</p>
+            <ul class="svc-process">
+              <li>Vessel assessment and market positioning</li>
+              <li>Verified listing publication on VesselPort</li>
+              <li>Qualified buyer identification and screening</li>
+              <li>NDA management and document disclosure</li>
+              <li>Offer facilitation and negotiation support</li>
+              <li>MOA coordination and closing management</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 02</div>
+          <div class="svc-card-title">Charter Placement</div>
+          <div class="svc-card-body">
+            <p>We facilitate time-charter, voyage-charter and bareboat arrangements for commercial vessels deployed in West African and international waters. Charter enquiries are matched against the active VesselPort portfolio and third-party vessels where required.</p>
+            <p>We represent both owners seeking employment for their vessels and charterers with specific operational requirements. In all cases, VesselPort manages the process under a structured mandate to protect both parties.</p>
+            <ul class="svc-process">
+              <li>Requirement capture and vessel matching</li>
+              <li>Owner introduction under confidentiality</li>
+              <li>Commercial terms negotiation support</li>
+              <li>Charter Party coordination and recap issuance</li>
+              <li>Post-fixture compliance monitoring support</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 03</div>
+          <div class="svc-card-title">Asset Valuation</div>
+          <div class="svc-card-body">
+            <p>DeltaWind Solutions provides indicative commercial valuation assessments for offshore vessels, tugs, barges, crew boats and cargo vessels operating in West African markets. Valuations are provided for the purpose of sale pricing guidance, financing support, insurance reference and portfolio management.</p>
+            <p>All valuations are desktop assessments based on market intelligence, recent comparable transactions and vessel condition information provided by the owner. Physical inspection-based formal appraisals can be arranged through appointed marine surveyors.</p>
+            <ul class="svc-process">
+              <li>Market intelligence review and comparable analysis</li>
+              <li>Vessel condition and survey status assessment</li>
+              <li>Indicative value range report</li>
+              <li>Financing or sale guidance based on valuation</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 04</div>
+          <div class="svc-card-title">Buyer Representation</div>
+          <div class="svc-card-body">
+            <p>For buyers seeking specific vessel types in West African or international markets, DeltaWind Solutions provides dedicated buy-side brokerage representation. We identify suitable vessels, conduct initial assessment, manage NDA and disclosure, and represent the buyer's interests through offer and closing.</p>
+            <p>Buyers engaging VesselPort on a representation basis benefit from exclusive access to off-market vessel opportunities and priority introductions within the DeltaWind Solutions network.</p>
+            <ul class="svc-process">
+              <li>Vessel specification and requirement capture</li>
+              <li>Market search and vessel identification</li>
+              <li>Pre-qualification and condition assessment</li>
+              <li>Offer structuring and negotiation on buyer's behalf</li>
+              <li>Due diligence coordination and closing support</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 05</div>
+          <div class="svc-card-title">Seller Representation</div>
+          <div class="svc-card-body">
+            <p>Vessel owners engaging DeltaWind Solutions as their exclusive or non-exclusive broker receive a structured marketing and sales programme. We manage buyer qualification, filter speculative enquiries, and present the vessel to credible prospects with purchasing or chartering capacity.</p>
+            <p>Our seller representation mandate is designed to protect the owner's commercial position throughout the process and to achieve the best commercially available outcome within the agreed mandate period.</p>
+            <ul class="svc-process">
+              <li>Mandate agreement and pricing strategy discussion</li>
+              <li>Marketing preparation and platform publication</li>
+              <li>Prospect identification and qualification</li>
+              <li>Negotiation management on seller's behalf</li>
+              <li>Documentation coordination and handover</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 06</div>
+          <div class="svc-card-title">Documentation &amp; Compliance Support</div>
+          <div class="svc-card-body">
+            <p>VesselPort provides documentation and compliance support to facilitate smooth vessel transactions in West African jurisdictions, with specific experience in Nigerian maritime regulatory requirements including NIMASA compliance, Nigerian cabotage regulations and port state control documentation.</p>
+            <p>We assist sellers in organising and presenting their vessel documentation package to meet VesselPort's verified listing standards and to satisfy buyer due diligence requirements.</p>
+            <ul class="svc-process">
+              <li>Documentation checklist and gap analysis</li>
+              <li>NIMASA and flag state compliance review</li>
+              <li>KYC and KYB documentation collection</li>
+              <li>NDA and LOI template provision</li>
+              <li>Post-transaction flag transfer guidance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-card-num">Service 07</div>
+          <div class="svc-card-title">Inspection &amp; Survey Coordination</div>
+          <div class="svc-card-body">
+            <p>DeltaWind Solutions coordinates physical vessel inspections and survey access for qualified buyers and charterers. We arrange logistics, port access, vessel attendance and surveyor introductions as part of the brokerage process. Where buyers prefer to appoint their own surveyor, we facilitate access and liaise with the seller on their behalf.</p>
+            <p>Remote video survey arrangements are available for international buyers conducting preliminary assessments prior to travel and physical inspection.</p>
+            <ul class="svc-process">
+              <li>Physical inspection coordination at vessel location</li>
+              <li>Surveyor appointment facilitation</li>
+              <li>Remote video survey arrangement</li>
+              <li>Inspection report review and commercial interpretation</li>
+              <li>Post-inspection negotiation support</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-card" style="background:var(--navy);border-color:var(--slate)">
+          <div class="svc-card-num" style="color:var(--gold)">Enquiry</div>
+          <div class="svc-card-title" style="color:var(--white);border-color:rgba(255,255,255,.1)">Discuss Your Requirement</div>
+          <div class="svc-card-body" style="color:rgba(255,255,255,.55)">
+            <p>For detailed service terms, mandate structures or to discuss a specific vessel transaction requirement, contact the DeltaWind Solutions brokerage desk directly. All initial enquiries are handled under commercial confidentiality.</p>
+          </div>
+          <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem">
+            <button class="btn-gold" onclick="showPage('contact')">Contact Brokerage Desk</button>
+            <button class="btn-outline-white" onclick="showPage('list')">List a Vessel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     RESOURCES PAGE
+══════════════════════════════════════════ -->
+<div id="page-resources" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Resources</div>
+      <h1 class="ph-title">Brokerage<br><em>Resources</em></h1>
+      <p class="ph-desc">Standard documentation templates and reference forms used in commercial vessel transactions facilitated through VesselPort. All documents are provided for guidance purposes. Final forms are issued through the brokerage desk under applicable mandate.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-chip">Document Library</div>
+      <h2 class="sec-title">Standard Brokerage Documents</h2>
+      <div class="resource-nda-note">
+        <p>Access to certain documents, including vessel-specific technical specifications, survey reports and ownership documentation, is restricted to verified clients who have executed a Non-Disclosure Agreement with DeltaWind Solutions. To request access, contact the brokerage desk directly.</p>
+      </div>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <div class="resource-type">Buyer Document</div>
+          <div class="resource-title">Letter of Intent (LOI)</div>
+          <p class="resource-desc">Standard Letter of Intent template used by buyers to formally express interest in a vessel and initiate the qualification and disclosure process. Required before full technical specifications are released.</p>
+          <div class="resource-footer">
+            <span class="resource-format">DOCX / PDF</span>
+            <button class="resource-btn" onclick="toast()">Request Template</button>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="resource-type">Bilateral Document</div>
+          <div class="resource-title">Non-Disclosure Agreement (NDA)</div>
+          <p class="resource-desc">Standard NDA template governing the disclosure of vessel documentation, pricing information and commercial terms between buyer and seller through VesselPort. Required for all full specification disclosures.</p>
+          <div class="resource-footer">
+            <span class="resource-format">DOCX / PDF</span>
+            <button class="resource-btn" onclick="toast()">Request Template</button>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="resource-type">Buyer Document</div>
+          <div class="resource-title">Buyer Registration Form</div>
+          <p class="resource-desc">Corporate buyer registration form collecting entity details, principal identification, intended vessel use and financial qualification information. Required for all buyers engaging the VesselPort brokerage desk.</p>
+          <div class="resource-footer">
+            <span class="resource-format">PDF</span>
+            <button class="resource-btn" onclick="toast()">Request Form</button>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="resource-type">Seller Document</div>
+          <div class="resource-title">Seller Submission Checklist</div>
+          <p class="resource-desc">Structured checklist of documentation required from vessel sellers prior to listing approval on VesselPort. Covers ownership proof, class certificates, flag state documents, survey records and corporate KYC requirements.</p>
+          <div class="resource-footer">
+            <span class="resource-format">PDF</span>
+            <button class="resource-btn" onclick="toast()">Request Checklist</button>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="resource-type">Technical Document</div>
+          <div class="resource-title">Vessel Specification Template</div>
+          <p class="resource-desc">Standard vessel specification sheet format accepted by VesselPort for listing submission. Covers dimensions, propulsion, capacity, class, flag, survey status, operational history and condition summary.</p>
+          <div class="resource-footer">
+            <span class="resource-format">XLSX / DOCX</span>
+            <button class="resource-btn" onclick="toast()">Request Template</button>
+          </div>
+        </div>
+        <div class="resource-card">
+          <div class="resource-type">Transaction Document</div>
+          <div class="resource-title">Transaction Workflow Guide</div>
+          <p class="resource-desc">Step-by-step guide to the VesselPort transaction process for both sale and charter mandates. Includes timeline expectations, documentation milestones and key decision points from enquiry through closing.</p>
+          <div class="resource-footer">
+            <span class="resource-format">PDF</span>
+            <button class="resource-btn" onclick="toast()">Request Guide</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sec-chip">Reference</div>
+      <h2 class="sec-title">Brokerage Terms &amp; Definitions</h2>
+      <table class="process-table" style="margin-top:1.5rem">
+        <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+        <tbody>
+          <tr><td>LOI</td><td>Letter of Intent — a written expression of a buyer's interest in acquiring or chartering a vessel, submitted before full specification disclosure.</td></tr>
+          <tr><td>NDA</td><td>Non-Disclosure Agreement — a bilateral confidentiality agreement required before sensitive vessel documentation, pricing or ownership details are disclosed.</td></tr>
+          <tr><td>MOA</td><td>Memorandum of Agreement — the binding sale contract executed between seller and buyer upon agreement of terms for a vessel purchase transaction.</td></tr>
+          <tr><td>KYC / KYB</td><td>Know Your Customer / Know Your Business — identity and corporate verification requirements applied to all transaction parties.</td></tr>
+          <tr><td>OFAC</td><td>Office of Foreign Assets Control — US sanctions authority. VesselPort screens against OFAC, UN and EU sanctions lists as a minimum compliance standard.</td></tr>
+          <tr><td>Bollard Pull</td><td>A measurement of a tug's pulling force, expressed in tonnes, used to assess suitability for towing and offshore support operations.</td></tr>
+          <tr><td>DP2</td><td>Dynamic Positioning Class 2 — a vessel classification indicating a redundant dynamic positioning system capable of maintaining station in the event of a single equipment failure.</td></tr>
+          <tr><td>Time Charter</td><td>A charter arrangement in which the vessel is hired for a specified period. The charterer pays hire and voyage costs; the owner pays crew and maintenance.</td></tr>
+          <tr><td>Bareboat Charter</td><td>A charter arrangement in which the charterer assumes full operational control of the vessel, providing their own crew and covering all operating costs.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     LIST A VESSEL PAGE
+══════════════════════════════════════════ -->
+<div id="page-list" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">List a Vessel</div>
+      <h1 class="ph-title">Submit Your Vessel<br><em>for Review</em></h1>
+      <p class="ph-desc">All submissions are reviewed by the DeltaWind Solutions brokerage team before publication. Commercial vessels only. A representative will contact you within 48 hours.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-inner" style="max-width:800px">
+      <div class="form-note">VesselPort accepts submissions for commercial vessels only. All listings are reviewed prior to publication. A brokerage representative will contact you within 48 hours of submission to confirm documentation requirements and listing terms. Submission does not guarantee publication.</div>
+      <form onsubmit="toast();return false;">
+        <div class="form-grid">
+          <div class="f-field"><label class="f-label">Company / Organisation</label><input class="f-input" type="text" required placeholder="Registered company name"></div>
+          <div class="f-field"><label class="f-label">Contact Person</label><input class="f-input" type="text" required placeholder="Full name"></div>
+          <div class="f-field"><label class="f-label">Email Address</label><input class="f-input" type="email" required placeholder="contact@company.com"></div>
+          <div class="f-field"><label class="f-label">Phone / WhatsApp</label><input class="f-input" type="tel" placeholder="+234 XXX XXX XXXX"></div>
+          <div class="f-field"><label class="f-label">Vessel Name</label><input class="f-input" type="text" required placeholder="MV Example"></div>
+          <div class="f-field"><label class="f-label">Vessel Type</label>
+            <select class="f-select">
+              <option>Tugboat</option><option>Anchor Handling Tug (AHTS)</option>
+              <option>Crew Boat</option><option>Offshore Supply Vessel (OSV/PSV)</option>
+              <option>Landing Craft</option><option>Workboat</option>
+              <option>Pilot Boat</option><option>Barge</option>
+              <option>Container Feeder</option><option>Coastal Cargo Vessel</option><option>Other</option>
+            </select>
+          </div>
+          <div class="f-field"><label class="f-label">Year Built</label><input class="f-input" type="number" placeholder="2015"></div>
+          <div class="f-field"><label class="f-label">LOA (metres)</label><input class="f-input" type="text" placeholder="45.2"></div>
+          <div class="f-field"><label class="f-label">Deal Type</label>
+            <select class="f-select"><option>For Sale</option><option>For Charter</option><option>Sale or Charter</option></select>
+          </div>
+          <div class="f-field"><label class="f-label">Current Flag</label><input class="f-input" type="text" placeholder="Nigerian / Panama / Marshall Islands"></div>
+          <div class="f-field"><label class="f-label">Classification Society</label><input class="f-input" type="text" placeholder="Lloyd's Register / Bureau Veritas / DNV"></div>
+          <div class="f-field"><label class="f-label">Current Location</label><input class="f-input" type="text" placeholder="Lagos / Port Harcourt / etc."></div>
+          <div class="f-field full"><label class="f-label">Vessel Description</label><textarea class="f-textarea" placeholder="Brief technical description including engine details, class status, condition, survey status and operational history..."></textarea></div>
+          <div class="f-field full"><label class="f-label">Asking Price or Rate (if disclosable)</label><input class="f-input" type="text" placeholder="USD 1,500,000 or Contact for Pricing"></div>
+        </div>
+        <div style="margin-top:1.5rem"><button type="submit" class="btn-submit">Submit Vessel for Review</button></div>
+        <p style="font-size:.7rem;color:var(--text-dim);margin-top:.85rem;line-height:1.65">Submission constitutes acceptance of VesselPort listing terms. DeltaWind Solutions reserves the right to decline any listing at its discretion. A non-disclosure agreement may be required before full brokerage engagement commences. Future: broker admin portal for listing management and document uploads is planned for Phase 2 of this platform.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">About</div>
+      <h1 class="ph-title">DeltaWind Solutions<br><em>Marine Brokerage</em></h1>
+      <p class="ph-desc">VesselPort is the marine brokerage marketplace division of DeltaWind Solutions, a registered maritime services company operating across Nigeria and West Africa.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="two-col">
+        <div>
+          <div class="sec-chip">Our Foundation</div>
+          <h2 class="sec-title">Built for West Africa's Maritime Industry</h2>
+          <p style="font-size:.87rem;color:var(--text-sec);line-height:1.82;margin-bottom:1.1rem">DeltaWind Solutions operates as a registered commercial entity providing structured maritime brokerage services across Nigeria, the Gulf of Guinea and the broader West African maritime corridor. Our marine brokerage division, marketed under the VesselPort brand, was established to address a clear gap in the regional market for an institutional-grade vessel transaction platform.</p>
+          <p style="font-size:.87rem;color:var(--text-sec);line-height:1.82;margin-bottom:1.1rem">The West African offshore and shipping sector has historically lacked a structured, transparent intermediary platform for commercial vessel transactions. VesselPort addresses this by combining regional market knowledge with rigorous brokerage standards aligned with international maritime practice.</p>
+          <p style="font-size:.87rem;color:var(--text-sec);line-height:1.82">Our client base includes offshore oil and gas operators, port authorities, marine contractors, shipping companies and government agencies requiring commercial vessels for specific operational mandates.</p>
+        </div>
+        <div>
+          <div class="sec-chip">Operating Principles</div>
+          <div class="value-stack">
+            <div class="vrow"><div class="vrow-n">01</div><div><div class="vrow-h4">Verification Before Publication</div><div class="vrow-p">No vessel is listed without documentation review. Seller identity, ownership evidence and registry confirmation are required before any listing is approved.</div></div></div>
+            <div class="vrow"><div class="vrow-n">02</div><div><div class="vrow-h4">Confidentiality as Default</div><div class="vrow-p">All brokerage engagements are conducted under commercial confidentiality. Sensitive details are protected as a standard position, not an optional feature.</div></div></div>
+            <div class="vrow"><div class="vrow-n">03</div><div><div class="vrow-h4">Regional Expertise</div><div class="vrow-p">DeltaWind Solutions brings direct operational knowledge of Nigerian maritime regulations, NIMASA requirements and West African port logistics.</div></div></div>
+            <div class="vrow"><div class="vrow-n">04</div><div><div class="vrow-h4">International Standards</div><div class="vrow-p">While focused on Nigeria and West Africa, VesselPort operates to international brokerage standards aligned with recognised maritime commercial practice.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Contact</div>
+      <h1 class="ph-title">Brokerage Desk</h1>
+      <p class="ph-desc">For vessel enquiries, charter requests, listing submissions or brokerage consultations, contact the DeltaWind Solutions brokerage desk directly.</p>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="two-col">
+        <div>
+          <div class="sec-chip">Direct Contact</div>
+          <h2 class="sec-title" style="margin-bottom:1.75rem">Get in Touch</h2>
+          <div class="contact-info-card">
+            <div class="cic-row"><div class="cic-lbl">Email</div><div class="cic-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f161119103f1b1a130b1e0816111b0c10130a0b1610110c511c1012">[email&#160;protected]</a></div><div class="cic-sub">Primary brokerage enquiries and submissions</div></div>
+            <div class="cic-row"><div class="cic-lbl">WhatsApp</div><div class="cic-val">+234 XXX XXX XXXX</div><div class="cic-sub">Available during business hours (WAT)</div></div>
+            <div class="cic-row"><div class="cic-lbl">Operational Region</div><div class="cic-val">Nigeria &amp; West Africa</div><div class="cic-sub">International enquiries also supported</div></div>
+            <div class="cic-row"><div class="cic-lbl">Response Time</div><div class="cic-val">24 – 48 Hours</div><div class="cic-sub">All commercial enquiries acknowledged within this period</div></div>
+            <div class="cic-row"><div class="cic-lbl">Parent Company</div><div class="cic-val">DeltaWind Solutions</div><div class="cic-sub">Registered maritime services company</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sec-chip">Enquiry Form</div>
+          <h2 class="sec-title" style="margin-bottom:1.75rem">Send an Enquiry</h2>
+          <form onsubmit="toast();return false;">
+            <div class="form-grid">
+              <div class="f-field"><label class="f-label">Full Name</label><input class="f-input" type="text" required placeholder="Your Name"></div>
+              <div class="f-field"><label class="f-label">Company</label><input class="f-input" type="text" placeholder="Organisation"></div>
+              <div class="f-field full"><label class="f-label">Email Address</label><input class="f-input" type="email" required placeholder="your@email.com"></div>
+              <div class="f-field full"><label class="f-label">Enquiry Type</label>
+                <select class="f-select"><option>Vessel Purchase</option><option>Charter Request</option><option>List a Vessel</option><option>Brokerage Services</option><option>Asset Valuation</option><option>General Enquiry</option></select>
+              </div>
+              <div class="f-field full"><label class="f-label">Message</label><textarea class="f-textarea" placeholder="Describe your requirement in detail, including vessel type, deployment area and any relevant commercial parameters..."></textarea></div>
+            </div>
+            <div style="margin-top:1.25rem"><button type="submit" class="btn-submit">Send Enquiry</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CLIENT ACCESS PAGE
+══════════════════════════════════════════ -->
+<div id="page-client" class="page">
+  <div class="ph">
+    <div class="ph-inner">
+      <div class="ph-label">Secure Access</div>
+      <h1 class="ph-title">Client Document Room</h1>
+      <p class="ph-desc">Restricted access for verified clients with executed NDA. Full vessel documentation, class records and transaction materials are held securely within this environment.</p>
+    </div>
+  </div>
+  <div class="client-access-wrap">
+    <div class="client-login-card">
+      <div class="client-card-title">Secure Client Login</div>
+      <p class="client-card-sub">This area is restricted to verified clients who have completed the VesselPort onboarding process and executed a Non-Disclosure Agreement with DeltaWind Solutions.</p>
+      <div class="client-secure-note"><b>Access Notice:</b> This document room is available exclusively to parties who have been formally introduced to a transaction by the VesselPort brokerage desk and have satisfied applicable KYC and NDA requirements.</div>
+      <form onsubmit="toast();return false;">
+        <div class="client-form-field"><label>Email Address</label><input type="email" placeholder="your@company.com" required></div>
+        <div class="client-form-field"><label>Access Code</label><input type="password" placeholder="Issued by brokerage desk" required></div>
+        <button type="submit" class="client-login-btn">Request Access</button>
+      </form>
+      <p class="client-disclaimer">Do not have an access code? Contact the brokerage desk at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6900070f06290d0c051d081e00070d1a06051c1d0006071a470a0604">[email&#160;protected]</a> to request verification and onboarding. Client access is issued only following NDA execution and identity verification.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">VesselPort</div>
+        <div class="footer-brand-sub">by DeltaWind Solutions</div>
+        <p class="footer-brand-desc">A verified marine brokerage marketplace serving Nigeria, West Africa and international maritime operators. Subsidiary brand of DeltaWind Solutions, registered maritime services company.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a onclick="showPage('vessels')">Marketplace</a>
+          <a onclick="showPage('brokerage')">Brokerage Desk</a>
+          <a onclick="showPage('services')">Services</a>
+          <a onclick="showPage('resources')">Resources</a>
+          <a onclick="showPage('list')">List a Vessel</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a onclick="showPage('about')">About DeltaWind</a>
+          <a onclick="showPage('brokerage')">Verification Process</a>
+          <a onclick="showPage('client')">Client Access</a>
+          <a onclick="showPage('contact')">Contact Us</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-line">Email: <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="11787f777e5175747d657066787f75627e7d6465787e7f623f727e7c">[email&#160;protected]</a></b></div>
+        <div class="footer-contact-line">WhatsApp: <b>+234 XXX XXX XXXX</b></div>
+        <div class="footer-contact-line" style="margin-top:.5rem">Nigeria &amp; West Africa<br>Response: 24–48 hours</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-copy">&copy; 2025 DeltaWind Solutions. VesselPort is a subsidiary brand of DeltaWind Solutions, registered maritime services company. All rights reserved.</div>
+        <div class="footer-copy" style="margin-top:.3rem;opacity:.65">All vessel listings subject to availability and prior sale. Pricing subject to verification. Errors and omissions excepted (E&amp;OE). VesselPort does not hold client funds.</div>
+        <div class="footer-copy" style="margin-top:.3rem;opacity:.65">DeltaWind Solutions is the registered parent company of VesselPort.</div>
+      </div>
+      <div class="footer-img-note">Sample vessel images used for demonstration purposes.<br>Images: Unsplash (royalty-free).</div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════════════════════════════════════
+   ╔═══════════════════════════════════════════════════╗
+   ║  VESSELPORT v4 — JavaScript Architecture          ║
+   ║  Folder Structure (Single-file MVP equivalent):   ║
+   ║                                                   ║
+   ║  /data/vessels.js        → IMG + VESSELS_DATA     ║
+   ║  /services/vesselService.js → VesselService       ║
+   ║  /app.js                 → State, routing, render ║
+   ║                                                   ║
+   ║  Backend Migration Plan:                          ║
+   ║  Phase 1: JSON (current)                          ║
+   ║  Phase 2: GET /api/vessels, /api/vessels/:slug    ║
+   ║  Phase 3: PostgreSQL + Prisma ORM                 ║
+   ║           Admin portal: broker login, doc upload  ║
+   ║           CRM dashboard for enquiry tracking      ║
+   ╚═══════════════════════════════════════════════════╝
+
+   DATA SCHEMA — data/vessels.js
+   ═══════════════════════════════════════════════════
+   Vessel {
+     id:          string          // "DW-1001"
+     slug:        string          // "mt-sagitta-ahts"
+     title:       string
+     type:        VesselType      // enum (see below)
+     dealType:    "Sale"|"Charter"
+     location:    string
+     region:      string          // for API filtering
+     yearBuilt:   number
+     dimensions: {
+       loa:  string,              // metres
+       beam: string,
+       draft: string
+     }
+     propulsion: {
+       engines:   string,
+       bhpTotal:  number|null
+     }
+     bollardPull: string|null     // tonnes, tugs only
+     flag:        string
+     classSociety: string
+     verified:    boolean
+     pricing: {
+       display:    string,        // "Contact for Pricing"
+       guidePrice: string|null,
+       currency:   string
+     }
+     media: {
+       heroImage: string,         // direct CDN URL
+       gallery:   string[]        // [3 direct CDN URLs]
+     }
+     description: string
+     tags:        string[]
+     createdAt:   string          // ISO 8601
+     updatedAt:   string
+   }
+   ═══════════════════════════════════════════════════ */
+
+// ── IMAGE REGISTRY (data/images.js) ─────────────────
+// All: images.unsplash.com direct CDN. No redirects.
+const IMG = {
+  // Unsplash — normalized to ?auto=format&fit=crop&w=1600&q=80
+  TUG_A:   "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=80",
+  TUG_B:   "https://images.unsplash.com/photo-1609337231803-2adad48ea1d1?auto=format&fit=crop&w=1600&q=80",
+  TUG_C:   "https://images.unsplash.com/photo-1598193956767-5f45a6307639?auto=format&fit=crop&w=1600&q=80",
+  TUG_D:   "https://images.unsplash.com/photo-1605676103133-df5f92882cae?auto=format&fit=crop&w=1600&q=80",
+  TUG_E:   "https://images.unsplash.com/photo-1558592029-97db8d137367?auto=format&fit=crop&w=1600&q=80",
+  OSV_A:   "https://images.unsplash.com/photo-1548222277-9f99bfec1555?auto=format&fit=crop&w=1600&q=80",
+  OSV_B:   "https://images.unsplash.com/photo-1709454972756-021ee178007b?auto=format&fit=crop&w=1600&q=80",
+  OSV_C:   "https://images.unsplash.com/photo-1597767106411-9426676bfaac?auto=format&fit=crop&w=1600&q=80",
+  OSV_D:   "https://images.unsplash.com/photo-1614555283386-f86c91585523?auto=format&fit=crop&w=1600&q=80",
+  // Pixabay — used directly
+  CREW_A:  "https://pixabay.com/images/download/x-3493887_1920.jpg",
+  CREW_B:  "https://pixabay.com/images/download/x-6767500_1920.jpg",
+  // Wikimedia — used directly
+  CREW_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Chemical_Challenger_%28ship%2C_2015%29_S%C3%A8te_cf01.jpg/640px-Chemical_Challenger_%28ship%2C_2015%29_S%C3%A8te_cf01.jpg",
+  BARGE_A: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Motorduwboot_STATUM%2C_ENI-nummer%2C_06002231%2BDuwbak_THIERRY%2C_ENI_06105382._15-07-2024._%28actm.%29_01.jpg/640px-Motorduwboot_STATUM%2C_ENI-nummer%2C_06002231%2BDuwbak_THIERRY%2C_ENI_06105382._15-07-2024._%28actm.%29_01.jpg",
+  BARGE_B: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Towboat_Covington_in_Jeffersonville.jpg/640px-Towboat_Covington_in_Jeffersonville.jpg",
+  BARGE_C: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Old_tug_boat_%28Proceed%29_-_geograph.org.uk_-_4016209.jpg/640px-Old_tug_boat_%28Proceed%29_-_geograph.org.uk_-_4016209.jpg",
+  CONT_A:  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/2025-05-03_01_SEASPAN_EAGLE_-_IMO_9432971_%E2%80%93_Ogden_Point%2C_BC_CAN.jpg/640px-2025-05-03_01_SEASPAN_EAGLE_-_IMO_9432971_%E2%80%93_Ogden_Point%2C_BC_CAN.jpg",
+  CONT_B:  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/The_Prince_Rock_Tug_Boat%2C_Plymouth_-_geograph.org.uk_-_4387265.jpg/640px-The_Prince_Rock_Tug_Boat%2C_Plymouth_-_geograph.org.uk_-_4387265.jpg",
+  CONT_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/OSV_Fantasy_Island.jpg/640px-OSV_Fantasy_Island.jpg",
+  PILOT_A: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/OSV_Storm.jpg/640px-OSV_Storm.jpg",
+  PILOT_B: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/OSV_Christian_Chouest.jpg/640px-OSV_Christian_Chouest.jpg",
+  PILOT_C: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/OSV_HOS_Crockett.jpg/640px-OSV_HOS_Crockett.jpg",
+  LAND_A:  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/OSV_HOS_Carousel.jpg/640px-OSV_HOS_Carousel.jpg",
+  LAND_B:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/OSV_JB_Foster.jpg/640px-OSV_JB_Foster.jpg",
+  LAND_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Tug_Hurao_USS_Emory_S._Land_%28AS-39%29_Naval_Base_Guam_2022.png/640px-Tug_Hurao_USS_Emory_S._Land_%28AS-39%29_Naval_Base_Guam_2022.png",
+  FALLBACK:"https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=80"
+};
+
+// ── VESSEL DATASET (data/vessels.js) ────────────────
+const VESSELS_DATA = [
+  { id:"DW-1001", slug:"mt-sagitta-ahts", title:"MT Sagitta", type:"Anchor Handling Tug", dealType:"Sale", location:"Lagos, Nigeria", region:"Nigeria", yearBuilt:2014, dimensions:{loa:"65.0",beam:"15.5",draft:"5.8"}, propulsion:{engines:"2x Caterpillar 3516C",bhpTotal:5760}, bollardPull:"80 tonnes", flag:"Nigerian", classSociety:"Lloyd's Register", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_A,gallery:[IMG.TUG_A,IMG.TUG_B,IMG.TUG_C]}, description:"The MT Sagitta is a robust anchor handling tug and supply vessel designed for offshore oil and gas operations in the Gulf of Guinea. Built to Lloyd's Register class standards, she offers a bollard pull of 80 tonnes suitable for FPSO anchor handling and towing operations. The vessel is currently Nigerian flagged and in active operation, with recent class renewal completed. Full documentation, class certificates and survey records are available to qualified buyers upon NDA execution.", tags:["AHTS","Offshore","Nigeria"], createdAt:"2024-01-10", updatedAt:"2025-03-01" },
+  { id:"DW-1002", slug:"mv-delta-force-osv", title:"MV Delta Force", type:"Offshore Supply Vessel", dealType:"Charter", location:"Port Harcourt, Nigeria", region:"Nigeria", yearBuilt:2012, dimensions:{loa:"70.2",beam:"16.0",draft:"4.9"}, propulsion:{engines:"4x MTU 16V4000 M63",bhpTotal:8000}, bollardPull:null, flag:"Nigerian", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.OSV_A,gallery:[IMG.OSV_A,IMG.OSV_B,IMG.OSV_C]}, description:"MV Delta Force is a platform supply vessel certified for offshore operations in Nigerian deepwater and shallow water environments. She carries DP1 notation and is outfitted with a fully enclosed cargo deck of approximately 650 square metres. The vessel maintains Bureau Veritas class and is available for medium to long-term charter arrangements. Crew capacity stands at 30 persons in air-conditioned accommodation.", tags:["PSV","DP1","Nigeria"], createdAt:"2024-02-05", updatedAt:"2025-03-01" },
+  { id:"DW-1003", slug:"mv-crestwave-crew-boat", title:"MV Crestwave", type:"Crew Boat", dealType:"Charter", location:"Warri, Nigeria", region:"Nigeria", yearBuilt:2018, dimensions:{loa:"38.5",beam:"7.2",draft:"1.8"}, propulsion:{engines:"3x MAN D2862 LE433",bhpTotal:3600}, bollardPull:null, flag:"Nigerian", classSociety:"NIPAS Certified", verified:true, pricing:{display:"Contact for Pricing",guidePrice:"USD 8,500 / Day",currency:"USD"}, media:{heroImage:IMG.CREW_A,gallery:[IMG.CREW_A,IMG.CREW_B,IMG.CREW_C]}, description:"MV Crestwave is a high-speed aluminium crew transfer vessel designed for offshore personnel transport in the Niger Delta region. Accommodating 60 passengers and operating at speeds of up to 28 knots, she provides efficient and safe crew change services to fixed platforms, FPSOs and floating facilities. The vessel meets current NIMASA survey requirements and is immediately available for charter.", tags:["Crew Transfer","High Speed","Nigeria"], createdAt:"2024-03-01", updatedAt:"2025-02-15" },
+  { id:"DW-1004", slug:"dt-bolaji-harbour-tug", title:"DT Bolaji", type:"Tugboat", dealType:"Sale", location:"Apapa, Lagos", region:"Nigeria", yearBuilt:2008, dimensions:{loa:"32.0",beam:"9.5",draft:"4.2"}, propulsion:{engines:"2x Caterpillar 3512B",bhpTotal:2400}, bollardPull:"35 tonnes", flag:"Nigerian", classSociety:"NSC Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_D,gallery:[IMG.TUG_D,IMG.TUG_A,IMG.TUG_C]}, description:"DT Bolaji is a conventional harbour tug currently based at the Port of Apapa. She has served reliably as an escort and berthing tug for the past several years and remains in full operational condition. Bollard pull of 35 tonnes makes her suitable for harbour escort duties and coastal towing. The vessel is offered for outright sale with complete operational history. A condition survey can be arranged for qualified buyers upon request.", tags:["Harbour Tug","Apapa","Nigeria"], createdAt:"2024-01-20", updatedAt:"2025-01-10" },
+  { id:"DW-1005", slug:"mv-okafor-ii-landing-craft", title:"MV Okafor II", type:"Landing Craft", dealType:"Sale", location:"Calabar, Nigeria", region:"Nigeria", yearBuilt:2011, dimensions:{loa:"55.0",beam:"12.0",draft:"2.1"}, propulsion:{engines:"2x Cummins QSK19-M",bhpTotal:1200}, bollardPull:null, flag:"Nigerian", classSociety:"Self-Classified", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.LAND_A,gallery:[IMG.LAND_A,IMG.LAND_B,IMG.LAND_C]}, description:"MV Okafor II is a self-propelled landing craft utility well suited to coastal supply and logistics operations along the Nigerian coastline and into riverine territories. She features a bow ramp for direct beach or jetty loading and is configured to carry heavy equipment, vehicles and bulk cargo. Currently in operational use and offered for outright sale. Inspection available by arrangement for credible buyers.", tags:["Landing Craft","Calabar","Nigeria"], createdAt:"2024-04-10", updatedAt:"2024-12-01" },
+  { id:"DW-1006", slug:"mv-amarathos-osv-ghana", title:"MV Amarathos", type:"Offshore Supply Vessel", dealType:"Sale", location:"Tema, Ghana", region:"West Africa", yearBuilt:2009, dimensions:{loa:"67.5",beam:"15.0",draft:"5.2"}, propulsion:{engines:"4x Wartsila 6L20",bhpTotal:5600}, bollardPull:null, flag:"Ghanaian", classSociety:"DNV", verified:true, pricing:{display:"Contact for Pricing",guidePrice:"USD 3,200,000",currency:"USD"}, media:{heroImage:IMG.OSV_B,gallery:[IMG.OSV_B,IMG.OSV_C,IMG.OSV_D]}, description:"MV Amarathos is a DNV-classed platform supply vessel currently positioned in Tema, Ghana and available for outright sale. She has operated extensively in West African offshore fields and maintains valid class certificates with the next survey due in 2026. The vessel features 620 square metres of open deck and liquid cargo capacity of 800 cubic metres. Interested parties are required to execute an NDA prior to access to full technical documentation.", tags:["PSV","DNV","Ghana","West Africa"], createdAt:"2024-02-20", updatedAt:"2025-03-10" },
+  { id:"DW-1007", slug:"pb-lighthouse-pilot-boat", title:"PB Lighthouse", type:"Pilot Boat", dealType:"Sale", location:"Onne Port, Nigeria", region:"Nigeria", yearBuilt:2016, dimensions:{loa:"15.5",beam:"5.0",draft:"1.2"}, propulsion:{engines:"2x Volvo Penta IPS 600",bhpTotal:450}, bollardPull:null, flag:"Nigerian", classSociety:"NMA Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.PILOT_A,gallery:[IMG.PILOT_A,IMG.PILOT_B,IMG.PILOT_C]}, description:"PB Lighthouse is a fast GRP pilot boat currently utilised at the Port of Onne. Designed for rapid pilot transfer in moderate sea states, she carries NMA operational approval and is maintained to high standards by the current operator. Maximum speed of 26 knots with full fuel capacity. She is offered for sale and would suit any port authority or terminal operator seeking a reliable pilot tender.", tags:["Pilot Boat","Onne","Nigeria"], createdAt:"2024-05-01", updatedAt:"2025-01-20" },
+  { id:"DW-1008", slug:"barge-nb-2201-flat-deck", title:"Barge NB-2201", type:"Barge", dealType:"Charter", location:"Lagos Lagoon, Nigeria", region:"Nigeria", yearBuilt:2007, dimensions:{loa:"90.0",beam:"24.0",draft:"2.8"}, propulsion:{engines:"Non-self-propelled",bhpTotal:null}, bollardPull:null, flag:"Nigerian", classSociety:"Owner Maintained", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.BARGE_A,gallery:[IMG.BARGE_A,IMG.BARGE_B,IMG.BARGE_C]}, description:"Barge NB-2201 is a non-self-propelled flat deck cargo barge operating within Lagos Lagoon and coastal Nigerian waters. She provides a working deck area of approximately 1,800 square metres and a deadweight capacity of 3,500 metric tonnes. The barge is available for medium to long-term charter with or without attendant tug services. Suitable for construction support, cargo transport, equipment storage and accommodation conversion.", tags:["Barge","Lagos","Nigeria"], createdAt:"2024-06-15", updatedAt:"2025-02-01" },
+  { id:"DW-1009", slug:"mv-equatorial-star-container", title:"MV Equatorial Star", type:"Container Feeder", dealType:"Sale", location:"Dakar, Senegal", region:"West Africa", yearBuilt:2006, dimensions:{loa:"135.0",beam:"22.5",draft:"7.8"}, propulsion:{engines:"MAN B&W 6S46MC-C",bhpTotal:9720}, bollardPull:null, flag:"Panamanian", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:"USD 5,800,000",currency:"USD"}, media:{heroImage:IMG.CONT_A,gallery:[IMG.CONT_A,IMG.CONT_B,IMG.CONT_C]}, description:"MV Equatorial Star is a container feeder vessel with a TEU capacity of 820, currently positioned in Dakar, Senegal. Built for intra-regional West African and Mediterranean feeder routes, she carries Bureau Veritas class and is offered for outright sale by the current corporate owners. The vessel has undergone recent intermediate survey and represents a viable operational acquisition for regional shipping operators seeking West African coastal deployment.", tags:["Container","Feeder","Senegal","Bureau Veritas"], createdAt:"2024-03-20", updatedAt:"2025-03-15" },
+  { id:"DW-1010", slug:"mv-coastal-pride-cargo", title:"MV Coastal Pride", type:"Coastal Cargo Vessel", dealType:"Sale", location:"Abidjan, Cote d'Ivoire", region:"West Africa", yearBuilt:2001, dimensions:{loa:"72.0",beam:"13.0",draft:"4.5"}, propulsion:{engines:"2x Caterpillar 3512",bhpTotal:2000}, bollardPull:null, flag:"Ivorian", classSociety:"Self-Classified", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.CONT_B,gallery:[IMG.CONT_B,IMG.CONT_C,IMG.CONT_A]}, description:"MV Coastal Pride is a general cargo vessel suited to short sea and coastal trading routes along the West African coast. Her holds are configured for dry bulk, bagged goods and general cargo. The vessel is in operational condition and offered for sale by the current Ivorian operator. A technical inspection is available for serious buyers upon submission of required documentation.", tags:["Cargo","Coastal","Cote d'Ivoire","West Africa"], createdAt:"2024-04-05", updatedAt:"2024-11-15" },
+  { id:"DW-1011", slug:"mv-aquila-workboat", title:"MV Aquila", type:"Workboat", dealType:"Charter", location:"Bonny Terminal, Nigeria", region:"Nigeria", yearBuilt:2019, dimensions:{loa:"28.0",beam:"8.0",draft:"1.9"}, propulsion:{engines:"2x John Deere 6090AFM85",bhpTotal:800}, bollardPull:null, flag:"Nigerian", classSociety:"NIMASA Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.PILOT_C,gallery:[IMG.PILOT_C,IMG.CREW_B,IMG.PILOT_B]}, description:"MV Aquila is a modern aluminium utility workboat operating from Bonny LNG Terminal as an infield support and maintenance vessel. She is outfitted with an A-frame crane of 3-tonne capacity and a certified deck payload of 15 tonnes. Available for term charter to offshore operators, terminal management companies and oil and gas service firms. The vessel can be operated under a bareboat or crewed charter arrangement.", tags:["Workboat","Bonny","Nigeria","LNG"], createdAt:"2024-05-20", updatedAt:"2025-02-28" },
+  { id:"DW-1012", slug:"dt-hercules-offshore-tug", title:"DT Hercules", type:"Tugboat", dealType:"Sale", location:"Rotterdam, Netherlands", region:"Europe", yearBuilt:2016, dimensions:{loa:"44.0",beam:"13.5",draft:"5.8"}, propulsion:{engines:"2x Wartsila 8L26",bhpTotal:5800}, bollardPull:"75 tonnes", flag:"Dutch", classSociety:"Lloyd's Register", verified:true, pricing:{display:"Contact for Pricing",guidePrice:"USD 4,100,000",currency:"USD"}, media:{heroImage:IMG.TUG_E,gallery:[IMG.TUG_E,IMG.TUG_B,IMG.TUG_D]}, description:"DT Hercules is a high-performance offshore tug currently laid up in Rotterdam, Netherlands and available for outright purchase. Her 75-tonne bollard pull makes her suitable for ocean towing, salvage support and anchor handling on smaller offshore installations. Currently Dutch flagged but can be re-flagged to the buyer's preferred registry. Lloyd's class is current with no outstanding conditions.", tags:["Offshore Tug","Rotterdam","Netherlands"], createdAt:"2024-06-01", updatedAt:"2025-03-05" },
+  { id:"DW-1013", slug:"mv-gulf-spirit-ahts", title:"MV Gulf Spirit", type:"Anchor Handling Tug", dealType:"Charter", location:"Dubai, UAE", region:"Middle East", yearBuilt:2017, dimensions:{loa:"75.0",beam:"18.0",draft:"6.5"}, propulsion:{engines:"4x Caterpillar 3516E",bhpTotal:12000}, bollardPull:"130 tonnes", flag:"Singaporean", classSociety:"DNV GL", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_C,gallery:[IMG.TUG_C,IMG.TUG_A,IMG.TUG_E]}, description:"MV Gulf Spirit is a high-bollard-pull AHTS vessel currently positioned in Dubai and available for international charter. With 130 tonnes of bollard pull and a comprehensive anchor handling package, she is suited to deepwater FPSO installation support and ocean towing of large structures. The vessel carries DP2 notation and has previously operated in the North Sea and Gulf of Guinea.", tags:["AHTS","DP2","Dubai","DNV GL"], createdAt:"2024-07-10", updatedAt:"2025-03-01" },
+  { id:"DW-1014", slug:"mv-niger-enterprise-osv", title:"MV Niger Enterprise", type:"Offshore Supply Vessel", dealType:"Sale", location:"Escravos, Nigeria", region:"Nigeria", yearBuilt:2007, dimensions:{loa:"60.0",beam:"14.0",draft:"4.6"}, propulsion:{engines:"2x Caterpillar 3516",bhpTotal:4000}, bollardPull:null, flag:"Nigerian", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.OSV_C,gallery:[IMG.OSV_C,IMG.OSV_A,IMG.OSV_D]}, description:"MV Niger Enterprise is an OSV combination vessel currently on lay-up in Escravos. She was most recently in service for a major IOC in the western Niger Delta and retains valid Bureau Veritas class certification. The vessel represents a cost-effective acquisition for an owner looking to re-enter the Nigerian offshore market. Inspection can be arranged for credible buyers who have completed documentation requirements.", tags:["OSV","Escravos","Nigeria","Bureau Veritas"], createdAt:"2024-08-01", updatedAt:"2025-02-10" },
+  { id:"DW-1015", slug:"mv-benin-express-crew", title:"MV Benin Express", type:"Crew Boat", dealType:"Sale", location:"Lagos, Nigeria", region:"Nigeria", yearBuilt:2013, dimensions:{loa:"42.0",beam:"7.8",draft:"1.7"}, propulsion:{engines:"4x MAN D2862 LE423",bhpTotal:4800}, bollardPull:null, flag:"Nigerian", classSociety:"NIMASA Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.CREW_B,gallery:[IMG.CREW_B,IMG.CREW_A,IMG.CREW_C]}, description:"MV Benin Express is a proven crew transfer vessel accommodating up to 80 offshore personnel. She has operated continuously on the Lagos to Bonga FPSO route and maintains an excellent service record. Dual-engine redundancy and a proven hull form make her a reliable acquisition. The vessel is offered for outright sale and is available for immediate handover subject to completion of the transaction process.", tags:["Crew Boat","Lagos","Nigeria","FPSO Support"], createdAt:"2024-08-15", updatedAt:"2025-01-05" },
+  { id:"DW-1016", slug:"barge-atlantic-deck-300", title:"Barge Atlantic Deck 300", type:"Barge", dealType:"Sale", location:"Tin Can Island, Lagos", region:"Nigeria", yearBuilt:2004, dimensions:{loa:"100.0",beam:"30.0",draft:"3.5"}, propulsion:{engines:"Non-self-propelled",bhpTotal:null}, bollardPull:null, flag:"Nigerian", classSociety:"Self-Classified", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.BARGE_B,gallery:[IMG.BARGE_B,IMG.BARGE_A,IMG.BARGE_C]}, description:"Atlantic Deck 300 is a heavy-lift pontoon barge capable of carrying up to 5,000 metric tonnes deadweight. The barge is currently moored at Tin Can Island and available for outright sale. Her large flat deck area of approximately 2,800 square metres lends itself to construction, salvage, pipelaying support or offshore craning operations. Structural inspection reports are available and the barge would require tug support for repositioning.", tags:["Heavy Lift Barge","Tin Can Island","Nigeria"], createdAt:"2024-09-01", updatedAt:"2025-01-15" },
+  { id:"DW-1017", slug:"mv-sealift-cotonou-lcu", title:"MV Sealift Cotonou", type:"Landing Craft", dealType:"Charter", location:"Cotonou, Benin", region:"West Africa", yearBuilt:2015, dimensions:{loa:"48.0",beam:"11.5",draft:"2.0"}, propulsion:{engines:"2x Caterpillar C18 ACERT",bhpTotal:1800}, bollardPull:null, flag:"Beninese", classSociety:"Owner Survey", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.LAND_B,gallery:[IMG.LAND_B,IMG.LAND_A,IMG.LAND_C]}, description:"MV Sealift Cotonou is a self-propelled landing craft utility operating out of Cotonou and available for regional charter. She provides 520 square metres of open deck and is regularly deployed on coastal logistics, equipment transport and marine construction support in Benin and western Nigeria. The vessel features a hydraulic bow ramp allowing direct beach or shallow water offloading.", tags:["Landing Craft","Cotonou","Benin","Charter"], createdAt:"2024-09-15", updatedAt:"2025-02-01" },
+  { id:"DW-1018", slug:"pb-emerald-pilot-boat-togo", title:"PB Emerald", type:"Pilot Boat", dealType:"Sale", location:"Lome, Togo", region:"West Africa", yearBuilt:2020, dimensions:{loa:"18.0",beam:"5.5",draft:"1.4"}, propulsion:{engines:"2x Yanmar 6HYM-WET",bhpTotal:500}, bollardPull:null, flag:"Togolese", classSociety:"BV Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.PILOT_B,gallery:[IMG.PILOT_B,IMG.PILOT_A,IMG.CREW_C]}, description:"PB Emerald is a modern GRP pilot tender completed for a Togolese port authority operator, offering a combination of speed (30 knots), sea-keeping and crew safety. Built to BV class requirements and currently offered for sale by the original owner following a change in port contract arrangements. Representing a recent build with minimal operational hours, PB Emerald is a premium acquisition for any port, terminal or pilotage authority.", tags:["Pilot Boat","Lome","Togo","BV Approved"], createdAt:"2024-10-01", updatedAt:"2025-03-01" },
+  { id:"DW-1019", slug:"mv-crossroads-workboat", title:"MV Crossroads", type:"Workboat", dealType:"Sale", location:"Lagos, Nigeria", region:"Nigeria", yearBuilt:2021, dimensions:{loa:"24.5",beam:"7.5",draft:"1.6"}, propulsion:{engines:"2x Baudouin 6W196SL2",bhpTotal:600}, bollardPull:null, flag:"Nigerian", classSociety:"NIMASA Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.CREW_C,gallery:[IMG.CREW_C,IMG.PILOT_C,IMG.PILOT_B]}, description:"MV Crossroads is a 2021-built utility workboat manufactured in France and now offered for sale by a Nigerian owner. She is in excellent condition with very low operational hours and retains full NIMASA survey validity. Well configured for infield utility work, equipment runs and personnel transfer in sheltered waters. The vessel is offered for sale unencumbered and can be inspected at its current mooring on prior arrangement.", tags:["Workboat","Lagos","Nigeria","Recent Build"], createdAt:"2024-10-15", updatedAt:"2025-03-10" },
+  { id:"DW-1020", slug:"dt-wara-coastal-tug", title:"DT Wara", type:"Tugboat", dealType:"Charter", location:"Warri, Nigeria", region:"Nigeria", yearBuilt:2010, dimensions:{loa:"30.0",beam:"9.0",draft:"4.0"}, propulsion:{engines:"2x Cummins KTA38-M2",bhpTotal:1800}, bollardPull:"28 tonnes", flag:"Nigerian", classSociety:"NSC Approved", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_B,gallery:[IMG.TUG_B,IMG.TUG_D,IMG.TUG_E]}, description:"DT Wara is a coastal harbour tug with 28 tonnes bollard pull operating in the Warri River and coastal Niger Delta region. She is currently in active service but available for medium-term charter from the current operator. Suitable for port escort, barge towing, salvage assistance and coastal towing within the Gulf of Guinea. Bareboat or time-charter arrangements will be considered.", tags:["Harbour Tug","Warri","Nigeria","Charter"], createdAt:"2024-11-01", updatedAt:"2025-02-20" },
+  { id:"DW-1021", slug:"mv-oguike-psv-delta", title:"MV Oguike", type:"Offshore Supply Vessel", dealType:"Charter", location:"Offshore Niger Delta", region:"Nigeria", yearBuilt:2005, dimensions:{loa:"58.0",beam:"13.0",draft:"4.3"}, propulsion:{engines:"2x MaK 8M25",bhpTotal:3200}, bollardPull:null, flag:"Nigerian", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.OSV_D,gallery:[IMG.OSV_D,IMG.OSV_B,IMG.OSV_C]}, description:"MV Oguike has served as an offshore support vessel in the Niger Delta for over a decade and remains in steady operational use. She carries Bureau Veritas classification and offers open deck cargo capacity complemented by 400 cubic metres of liquid mud and ballast capacity. Currently operating on a fixed term contract, with secondary availability opening from Q3 2025. Charter parties are invited to register early interest.", tags:["PSV","Niger Delta","Nigeria","Bureau Veritas"], createdAt:"2024-11-15", updatedAt:"2025-03-01" },
+  { id:"DW-1022", slug:"mv-atlantic-bay-ahts", title:"MV Atlantic Bay", type:"Anchor Handling Tug", dealType:"Sale", location:"Aberdeen, United Kingdom", region:"Europe", yearBuilt:2003, dimensions:{loa:"68.0",beam:"16.0",draft:"6.0"}, propulsion:{engines:"4x Rolls-Royce Bergen B32:40V12",bhpTotal:9600}, bollardPull:"110 tonnes", flag:"Marshall Islands", classSociety:"DNV GL", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_A,gallery:[IMG.TUG_A,IMG.TUG_E,IMG.TUG_C]}, description:"MV Atlantic Bay is a 110-tonne bollard pull anchor handling tug and supply vessel currently laid up in Aberdeen following retirement from its North Sea contract. She is offered for outright sale and represents significant capability for any operator seeking to establish West African AHTS presence. DNV GL class is maintained with next survey due in 2026. Offered in as-is condition with full technical records available.", tags:["AHTS","Aberdeen","UK","DNV GL"], createdAt:"2024-12-01", updatedAt:"2025-03-10" },
+  { id:"DW-1023", slug:"barge-nig-103-mud", title:"Barge NIG-103", type:"Barge", dealType:"Sale", location:"Eket, Nigeria", region:"Nigeria", yearBuilt:2013, dimensions:{loa:"76.0",beam:"20.0",draft:"2.6"}, propulsion:{engines:"Non-self-propelled",bhpTotal:null}, bollardPull:null, flag:"Nigerian", classSociety:"Approved", verified:false, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.BARGE_C,gallery:[IMG.BARGE_C,IMG.BARGE_A,IMG.BARGE_B]}, description:"Barge NIG-103 is a split-hull dredge support and mud barge currently positioned at Eket in Akwa Ibom State. Configured with mud tanks of 800 cubic metres total capacity, the barge is well suited to offshore drilling support, dredge campaign assistance and coastal material transport. She is offered for outright sale and would require tug deployment. A structural survey report will be made available to qualified buyers.", tags:["Mud Barge","Eket","Nigeria","Drilling Support"], createdAt:"2024-12-15", updatedAt:"2025-02-05" },
+  { id:"DW-1024", slug:"mv-stormrunner-crew-congo", title:"MV Stormrunner", type:"Crew Boat", dealType:"Sale", location:"Pointe-Noire, Congo", region:"West Africa", yearBuilt:2022, dimensions:{loa:"36.0",beam:"7.4",draft:"1.6"}, propulsion:{engines:"3x Volvo Penta D16-900",bhpTotal:2700}, bollardPull:null, flag:"Congolese", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:"USD 2,400,000",currency:"USD"}, media:{heroImage:IMG.CREW_C,gallery:[IMG.CREW_C,IMG.CREW_A,IMG.CREW_B]}, description:"MV Stormrunner is a 2022-built aluminium crew transfer vessel currently operating in the Congolese offshore sector. One of the most recently built vessels in the West African offshore fleet, she offers outstanding sea-keeping, passenger comfort for up to 50 pax and a top speed of 32 knots. She is offered for outright sale and would suit any operator seeking a premium, low-hours crew boat for regional deployment. BV class is current.", tags:["Crew Boat","Congo","West Africa","Recent Build"], createdAt:"2025-01-05", updatedAt:"2025-03-15" }
+];
+
+/* ═══════════════════════════════════════════════════════
+   SERVICE LAYER — services/vesselService.js
+   Replace _data source with fetch('/api/vessels') for Phase 2
+═══════════════════════════════════════════════════════ */
+const VesselService = {
+  _data: VESSELS_DATA,
+
+  getAllVessels()        { return [...this._data]; },
+  getVesselBySlug(slug) { return this._data.find(v => v.slug === slug) ?? null; },
+  getVesselById(id)     { return this._data.find(v => v.id === id) ?? null; },
+  getFeaturedVessels(n=6){ return this._data.filter(v => v.verified).slice(0,n); },
+  getUniqueTypes()      { return [...new Set(this._data.map(v => v.type))].sort(); },
+  getUniqueRegions()    { return [...new Set(this._data.map(v => v.region))].sort(); },
+
+  filterVessels({ types=[], deals=[], regions=[], verifiedOnly=false, search='' } = {}) {
+    let r = [...this._data];
+    if (types.length)    r = r.filter(v => types.includes(v.type));
+    if (deals.length)    r = r.filter(v => deals.includes(v.dealType));
+    if (regions.length)  r = r.filter(v => regions.includes(v.region));
+    if (verifiedOnly)    r = r.filter(v => v.verified);
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      r = r.filter(v => JSON.stringify(v).toLowerCase().includes(q));
+    }
+    return r;
+  },
+
+  getRelatedVessels(id, n=3) {
+    const v = this.getVesselById(id);
+    if (!v) return [];
+    return this._data.filter(x => x.type === v.type && x.id !== id).slice(0,n);
+  }
+};
+
+/* ═══════════════════════════════════════════════════════
+   UI STATE
+═══════════════════════════════════════════════════════ */
+const state = {
+  page: 'home',
+  filters: { types:[], deals:[], regions:[], verifiedOnly:false, search:'' },
+  sort: 'default',
+  results: VesselService.getAllVessels()
+};
+
+/* ═══════════════════════════════════════════════════════
+   ROUTING
+═══════════════════════════════════════════════════════ */
+const NAV_PAGES = ['home','vessels','brokerage','services','resources','list','contact','about','client','detail'];
+
+function showPage(page, param) {
+  NAV_PAGES.forEach(p => {
+    const el = document.getElementById('page-' + p);
+    if (el) el.classList.remove('active');
+  });
+  document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(a => a.classList.remove('nav-active'));
+
+  const pg = document.getElementById('page-' + page);
+  if (pg) pg.classList.add('active');
+
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('nav-active');
+
+  state.page = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (page === 'home')    renderFeatured();
+  if (page === 'vessels') { buildFilterPanels(); renderGrid(); }
+  if (page === 'detail' && param) renderDetail(param);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARD RENDERER
+═══════════════════════════════════════════════════════ */
+const FB = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80";
+
+function buildCard(v) {
+  const specs = [
+    { l:'LOA', v: v.dimensions.loa + 'm' },
+    { l:'Year', v: v.yearBuilt },
+    { l: v.bollardPull ? 'BP' : 'Flag', v: v.bollardPull ?? v.flag.slice(0,9) }
+  ];
+  return `
+<div class="vcard" onclick="showPage('detail','${v.id}')">
+  <div class="vcard-img">
+    <img src="${v.media.heroImage}" alt="${v.title}" loading="lazy" referrerpolicy="no-referrer"
+         onerror="this.onerror=null;this.src='${FB}'">
+    <div class="vcard-badges">
+      <span class="badge badge-dark">${v.type}</span>
+      <span class="badge badge-${v.dealType.toLowerCase()}">${v.dealType==='Sale'?'For Sale':'For Charter'}</span>
+    </div>
+    ${v.verified?`<span class="badge-verified">Verified</span>`:''}
+  </div>
+  <div class="vcard-body">
+    <div class="vcard-id">${v.id}</div>
+    <div class="vcard-name">${v.title}</div>
+    <div class="vcard-loc">${v.location}</div>
+    <div class="vcard-specs">
+      ${specs.map(s=>`<div class="vcard-spec"><div class="vs-lbl">${s.l}</div><div class="vs-val">${s.v}</div></div>`).join('')}
+    </div>
+    <div class="vcard-footer">
+      <div class="vcard-price">
+        <div class="vp-lbl">Pricing</div>
+        ${v.pricing.guidePrice
+          ? `<div class="vp-guide">${v.pricing.guidePrice}</div>`
+          : `<div class="vp-val">${v.pricing.display}</div>`}
+      </div>
+      <div class="vcard-actions">
+        <button class="btn-enquire" onclick="event.stopPropagation();showPage('contact')">Enquire</button>
+        <span class="link-view">Details</span>
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FEATURED GRID
+═══════════════════════════════════════════════════════ */
+function renderFeatured() {
+  const el = document.getElementById('featured-grid');
+  if (el) el.innerHTML = VesselService.getFeaturedVessels(6).map(buildCard).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILTER PANEL HTML
+═══════════════════════════════════════════════════════ */
+function filterHTML() {
+  const types = VesselService.getUniqueTypes();
+  const regions = VesselService.getUniqueRegions();
+  return `
+<div class="filter-group">
+  <div class="fg-title">Vessel Type</div>
+  <div class="fg-opts">
+    ${types.map(t=>`<label class="fg-opt"><input type="checkbox" data-key="types" value="${t}" onchange="applyFilters()"> ${t}</label>`).join('')}
+  </div>
+</div>
+<div class="filter-group">
+  <div class="fg-title">Deal Type</div>
+  <div class="fg-opts">
+    <label class="fg-opt"><input type="checkbox" data-key="deals" value="Sale" onchange="applyFilters()"> For Sale</label>
+    <label class="fg-opt"><input type="checkbox" data-key="deals" value="Charter" onchange="applyFilters()"> For Charter</label>
+  </div>
+</div>
+<div class="filter-group">
+  <div class="fg-title">Region</div>
+  <div class="fg-opts">
+    ${regions.map(r=>`<label class="fg-opt"><input type="checkbox" data-key="regions" value="${r}" onchange="applyFilters()"> ${r}</label>`).join('')}
+  </div>
+</div>
+<div class="filter-group">
+  <div class="fg-title">Verification</div>
+  <div class="filter-toggle-row">
+    <span>Verified Listings Only</span>
+    <div class="toggle ${state.filters.verifiedOnly?'on':''}" id="vtoggle" onclick="toggleVerified()"></div>
+  </div>
+</div>`;
+}
+
+function buildFilterPanels() {
+  const d = document.getElementById('desktop-filter-body');
+  const dr = document.getElementById('drawer-filter-body');
+  if (d)  d.innerHTML = filterHTML();
+  if (dr) dr.innerHTML = filterHTML();
+}
+
+function applyFilters() {
+  state.filters.types   = [...document.querySelectorAll('[data-key="types"]:checked')].map(e=>e.value);
+  state.filters.deals   = [...document.querySelectorAll('[data-key="deals"]:checked')].map(e=>e.value);
+  state.filters.regions = [...document.querySelectorAll('[data-key="regions"]:checked')].map(e=>e.value);
+  const si = document.getElementById('search-input');
+  state.filters.search  = si ? si.value : '';
+  state.results = VesselService.filterVessels(state.filters);
+  applySort(state.sort, false);
+  renderGrid();
+}
+
+function applySort(val, re=true) {
+  state.sort = val;
+  if (val==='year-desc') state.results.sort((a,b)=>b.yearBuilt-a.yearBuilt);
+  if (val==='year-asc')  state.results.sort((a,b)=>a.yearBuilt-b.yearBuilt);
+  if (val==='loa-desc')  state.results.sort((a,b)=>parseFloat(b.dimensions.loa)-parseFloat(a.dimensions.loa));
+  if (val==='default')   state.results = VesselService.filterVessels(state.filters);
+  if (re) renderGrid();
+}
+
+function toggleVerified() {
+  state.filters.verifiedOnly = !state.filters.verifiedOnly;
+  document.querySelectorAll('#vtoggle').forEach(t=>t.classList.toggle('on', state.filters.verifiedOnly));
+  applyFilters();
+}
+
+function resetFilters() {
+  state.filters = { types:[], deals:[], regions:[], verifiedOnly:false, search:'' };
+  state.sort = 'default';
+  const si = document.getElementById('search-input');
+  if (si) si.value = '';
+  buildFilterPanels();
+  state.results = VesselService.getAllVessels();
+  renderGrid();
+}
+
+function renderGrid() {
+  const g = document.getElementById('vessels-grid');
+  const m = document.getElementById('results-meta');
+  if (!g) return;
+  const v = state.results;
+  const vc = v.filter(x=>x.verified).length;
+  if (m) m.textContent = `Showing ${v.length} vessel${v.length!==1?'s':''} — ${vc} verified`;
+  g.innerHTML = v.length ? v.map(buildCard).join('') :
+    `<div style="grid-column:1/-1;padding:4rem 2rem;text-align:center;color:var(--text-dim)">No listings match the current filters. <button onclick="resetFilters()" style="color:var(--gold);background:none;border:none;cursor:pointer;font-size:inherit">Reset filters</button></div>`;
+}
+
+/* ═══════════════════════════════════════════════════════
+   DETAIL PAGE
+═══════════════════════════════════════════════════════ */
+function renderDetail(id) {
+  const v = VesselService.getVesselById(id);
+  if (!v) { showPage('vessels'); return; }
+  const related = VesselService.getRelatedVessels(id, 3);
+  const specs = [
+    ['Vessel ID', v.id], ['Vessel Name', v.title], ['Type', v.type],
+    ['Deal Type', v.dealType==='Sale'?'For Sale':'For Charter'],
+    ['Year Built', v.yearBuilt],
+    ['LOA', v.dimensions.loa + ' metres'],
+    ['Beam', v.dimensions.beam + ' metres'],
+    ['Draft', v.dimensions.draft + ' metres'],
+    ['Propulsion', v.propulsion.engines + (v.propulsion.bhpTotal ? ` — ${v.propulsion.bhpTotal.toLocaleString()} BHP total` : '')],
+    ...(v.bollardPull ? [['Bollard Pull', v.bollardPull]] : []),
+    ['Flag', v.flag], ['Classification', v.classSociety],
+    ['Location', v.location], ['Region', v.region],
+    ['Verification', v.verified ? 'Verified by DeltaWind Solutions' : 'Pending Verification']
+  ];
+
+  document.getElementById('detail-root').innerHTML = `
+<div class="detail-hdr">
+  <div class="detail-hdr-inner">
+    <div class="breadcrumb">
+      <a onclick="showPage('home')">Home</a><span class="bc-sep">/</span>
+      <a onclick="showPage('vessels')">Marketplace</a><span class="bc-sep">/</span>
+      <span>${v.title}</span>
+    </div>
+    <h1 class="detail-title">${v.title}</h1>
+    <div class="detail-pills">
+      <span class="d-pill">${v.id}</span>
+      <span class="d-pill">${v.type}</span>
+      <span class="d-pill">${v.dealType==='Sale'?'For Sale':'For Charter'}</span>
+      <span class="d-pill">${v.location}</span>
+      <span class="d-pill">Built ${v.yearBuilt}</span>
+      ${v.verified?`<span class="d-pill d-pill-gold">Verified Listing</span>`:''}
+    </div>
+  </div>
+</div>
+
+<div class="detail-body">
+  <div>
+    <img id="gallery-main" src="${v.media.heroImage}" alt="${v.title}" class="gallery-main-img"
+         referrerpolicy="no-referrer" loading="lazy"
+         onerror="this.onerror=null;this.src='${FB}'">
+    <div class="gallery-thumbs">
+      ${v.media.gallery.map((img,i)=>`
+        <img src="${img}" class="gallery-thumb ${i===0?'active':''}" loading="lazy" referrerpolicy="no-referrer"
+             onclick="setThumb('${img}',this)" onerror="this.onerror=null;this.style.display='none'"
+             alt="${v.title} ${i+1}">`).join('')}
+    </div>
+
+    ${v.verified?`
+    <div class="verified-bar">
+      <div class="verified-mark">&#10003;</div>
+      <div class="verified-text">
+        <h5>Verified by DeltaWind Solutions</h5>
+        <p>Documentation reviewed. Full class certificates and technical specifications available to qualified buyers upon NDA execution.</p>
+      </div>
+    </div>`:''}
+
+    <div class="detail-sec-title">Vessel Description</div>
+    <p class="detail-desc">${v.description}</p>
+
+    <div class="detail-sec-title">Technical Specifications</div>
+    <table class="spec-table">
+      ${specs.map(([k,val])=>`<tr><td>${k}</td><td>${val}</td></tr>`).join('')}
+    </table>
+
+    ${related.length?`
+    <div class="divider"></div>
+    <div class="detail-sec-title">Related Vessels</div>
+    <div class="vessels-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+      ${related.map(buildCard).join('')}
+    </div>`:''}
+
+    <div class="brok-disclaimer">
+      <p><strong>Brokerage Notice:</strong> All vessel information is provided in good faith based on data supplied by the listing party. DeltaWind Solutions has not independently verified all technical details. Full documentation, class certificates and survey records are provided to qualified buyers following NDA execution and buyer qualification. This listing does not constitute an offer to sell. All transactions are subject to VesselPort brokerage terms. Errors and omissions excepted (E&amp;OE).</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="cta-panel">
+      <div class="cta-vessel-name">${v.title}</div>
+      <div class="cta-vessel-id">${v.id} &bull; ${v.type}</div>
+      <div class="cta-price-blk">
+        <div class="cta-plbl">Pricing</div>
+        ${v.pricing.guidePrice
+          ?`<div class="cta-guide">${v.pricing.guidePrice}</div><div class="cta-pnote">Guide price — subject to negotiation and inspection</div>`
+          :`<div class="cta-pval">${v.pricing.display}</div>`}
+      </div>
+      <button class="cta-btn cta-btn-pri" onclick="showPage('contact')">Submit Enquiry</button>
+      <button class="cta-btn cta-btn-sec" onclick="toast()">Request Full Specifications</button>
+      <button class="cta-btn cta-btn-sec" onclick="toast()">Arrange Inspection</button>
+      <div class="cta-nda">
+        <div class="cta-nda-lbl">Documents &amp; Confidentiality</div>
+        <p class="cta-nda-txt">Full technical specifications, class certificates, survey reports and ownership documentation are available upon execution of a Non-Disclosure Agreement with DeltaWind Solutions.</p>
+      </div>
+      <div class="cta-divider"></div>
+      <div class="cta-contact">
+        Brokerage desk:<br><b>info@deltawindsolutions.com</b><br>
+        Response within <b>24–48 hours</b> of enquiry.
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+function setThumb(src, el) {
+  document.getElementById('gallery-main').src = src;
+  document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILTER DRAWER (mobile)
+═══════════════════════════════════════════════════════ */
+function openFilterDrawer() {
+  document.getElementById('drawer-filter-body').innerHTML = filterHTML();
+  document.getElementById('filterDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeFilterDrawer() {
+  document.getElementById('filterDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+  applyFilters();
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════════════ */
+function toggleMobileNav() {
+  document.getElementById('mob-drawer').classList.toggle('open');
+}
+function closeMobileNav() {
+  document.getElementById('mob-drawer').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════ */
+function toast() {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+  showPage('home');
+});
+
+/* ═══════════════════════════════════════════════════════
+   GLOBAL SCOPE ASSIGNMENTS
+   Ensures inline onclick handlers can reach these functions
+═══════════════════════════════════════════════════════ */
+window.showPage          = showPage;
+window.toggleMobileNav   = toggleMobileNav;
+window.closeMobileNav    = closeMobileNav;
+window.openFilterDrawer  = openFilterDrawer;
+window.closeFilterDrawer = closeFilterDrawer;
+window.toast             = toast;
+window.setThumb          = setThumb;
+window.applyFilters      = applyFilters;
+window.applySort         = applySort;
+window.toggleVerified    = toggleVerified;
+window.resetFilters      = resetFilters;
+
+</script>
+</body>
+</html>
