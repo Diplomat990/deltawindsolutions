@@ -257,7 +257,7 @@ nav {
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=55') center 40% / cover no-repeat;
+  background: url('images/vessels/v1.jpg') center 40% / cover no-repeat;
   opacity: .1; filter: grayscale(30%);
 }
 .hero-gold-bar {
@@ -1725,37 +1725,67 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,.05); p
 // ── IMAGE REGISTRY (data/images.js) ─────────────────
 // All: images.unsplash.com direct CDN. No redirects.
 const IMG = {
-  // Unsplash — normalized to ?auto=format&fit=crop&w=1600&q=80
-  TUG_A:   "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=80",
-  TUG_B:   "https://images.unsplash.com/photo-1609337231803-2adad48ea1d1?auto=format&fit=crop&w=1600&q=80",
-  TUG_C:   "https://images.unsplash.com/photo-1598193956767-5f45a6307639?auto=format&fit=crop&w=1600&q=80",
-  TUG_D:   "https://images.unsplash.com/photo-1605676103133-df5f92882cae?auto=format&fit=crop&w=1600&q=80",
-  TUG_E:   "https://images.unsplash.com/photo-1558592029-97db8d137367?auto=format&fit=crop&w=1600&q=80",
-  OSV_A:   "https://images.unsplash.com/photo-1548222277-9f99bfec1555?auto=format&fit=crop&w=1600&q=80",
-  OSV_B:   "https://images.unsplash.com/photo-1709454972756-021ee178007b?auto=format&fit=crop&w=1600&q=80",
-  OSV_C:   "https://images.unsplash.com/photo-1597767106411-9426676bfaac?auto=format&fit=crop&w=1600&q=80",
-  OSV_D:   "https://images.unsplash.com/photo-1614555283386-f86c91585523?auto=format&fit=crop&w=1600&q=80",
-  // Pixabay — used directly
-  CREW_A:  "https://pixabay.com/images/download/x-3493887_1920.jpg",
-  CREW_B:  "https://pixabay.com/images/download/x-6767500_1920.jpg",
-  // Wikimedia — used directly
-  CREW_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Chemical_Challenger_%28ship%2C_2015%29_S%C3%A8te_cf01.jpg/640px-Chemical_Challenger_%28ship%2C_2015%29_S%C3%A8te_cf01.jpg",
-  BARGE_A: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Motorduwboot_STATUM%2C_ENI-nummer%2C_06002231%2BDuwbak_THIERRY%2C_ENI_06105382._15-07-2024._%28actm.%29_01.jpg/640px-Motorduwboot_STATUM%2C_ENI-nummer%2C_06002231%2BDuwbak_THIERRY%2C_ENI_06105382._15-07-2024._%28actm.%29_01.jpg",
-  BARGE_B: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Towboat_Covington_in_Jeffersonville.jpg/640px-Towboat_Covington_in_Jeffersonville.jpg",
-  BARGE_C: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Old_tug_boat_%28Proceed%29_-_geograph.org.uk_-_4016209.jpg/640px-Old_tug_boat_%28Proceed%29_-_geograph.org.uk_-_4016209.jpg",
-  CONT_A:  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/2025-05-03_01_SEASPAN_EAGLE_-_IMO_9432971_%E2%80%93_Ogden_Point%2C_BC_CAN.jpg/640px-2025-05-03_01_SEASPAN_EAGLE_-_IMO_9432971_%E2%80%93_Ogden_Point%2C_BC_CAN.jpg",
-  CONT_B:  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/The_Prince_Rock_Tug_Boat%2C_Plymouth_-_geograph.org.uk_-_4387265.jpg/640px-The_Prince_Rock_Tug_Boat%2C_Plymouth_-_geograph.org.uk_-_4387265.jpg",
-  CONT_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/OSV_Fantasy_Island.jpg/640px-OSV_Fantasy_Island.jpg",
-  PILOT_A: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/OSV_Storm.jpg/640px-OSV_Storm.jpg",
-  PILOT_B: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/OSV_Christian_Chouest.jpg/640px-OSV_Christian_Chouest.jpg",
-  PILOT_C: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/OSV_HOS_Crockett.jpg/640px-OSV_HOS_Crockett.jpg",
-  LAND_A:  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/OSV_HOS_Carousel.jpg/640px-OSV_HOS_Carousel.jpg",
-  LAND_B:  "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/OSV_JB_Foster.jpg/640px-OSV_JB_Foster.jpg",
-  LAND_C:  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Tug_Hurao_USS_Emory_S._Land_%28AS-39%29_Naval_Base_Guam_2022.png/640px-Tug_Hurao_USS_Emory_S._Land_%28AS-39%29_Naval_Base_Guam_2022.png",
-  FALLBACK:"https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&w=1600&q=80"
+  TUG_A:   "images/vessels/v1.jpg",
+  TUG_B:   "images/vessels/v2.jpg",
+  TUG_C:   "images/vessels/v3.jpg",
+  TUG_D:   "images/vessels/v4.jpg",
+  TUG_E:   "images/vessels/v5.jpg",
+  OSV_A:   "images/vessels/v6.jpg",
+  OSV_B:   "images/vessels/v7.jpg",
+  OSV_C:   "images/vessels/v8.jpg",
+  OSV_D:   "images/vessels/v9.png",
+  CREW_A:  "images/vessels/v10.png",
+  CREW_B:  "images/vessels/v11.png",
+  CREW_C:  "images/vessels/v12.png",
+  BARGE_A: "images/vessels/v13.png",
+  BARGE_B: "images/vessels/v14.png",
+  BARGE_C: "images/vessels/v15.png",
+  CONT_A:  "images/vessels/v16.png",
+  CONT_B:  "images/vessels/v17.png",
+  CONT_C:  "images/vessels/v18.png",
+  PILOT_A: "images/vessels/v19.png",
+  PILOT_B: "images/vessels/v20.png",
+  PILOT_C: "images/vessels/v21.png",
+  LAND_A:  "images/vessels/v22.png",
+  LAND_B:  "images/vessels/v23.png",
+  LAND_C:  "images/vessels/v24.png",
+  FALLBACK:"images/vessels/v25.png"
 };
 
-// ── VESSEL DATASET (data/vessels.js) ────────────────
+const FALLBACK_IMAGES = [
+  "images/vessels/v1.jpg",
+  "images/vessels/v2.jpg",
+  "images/vessels/v3.jpg",
+  "images/vessels/v4.jpg",
+  "images/vessels/v5.jpg",
+  "images/vessels/v6.jpg",
+  "images/vessels/v7.jpg",
+  "images/vessels/v8.jpg",
+  "images/vessels/v9.png",
+  "images/vessels/v10.png",
+  "images/vessels/v11.png",
+  "images/vessels/v12.png",
+  "images/vessels/v13.png",
+  "images/vessels/v14.png",
+  "images/vessels/v15.png",
+  "images/vessels/v16.png",
+  "images/vessels/v17.png",
+  "images/vessels/v18.png",
+  "images/vessels/v19.png",
+  "images/vessels/v20.png",
+  "images/vessels/v21.png",
+  "images/vessels/v22.png",
+  "images/vessels/v23.png",
+  "images/vessels/v24.png",
+  "images/vessels/v25.png",
+  "images/vessels/v26.png",
+  "images/vessels/v27.png",
+  "images/vessels/v28.png",
+  "images/vessels/v29.png",
+  "images/vessels/v30.png"
+];
+
+// ── VESSEL DATASET// ── VESSEL DATASET (data/vessels.js) ────────────────
 const VESSELS_DATA = [
   { id:"DW-1001", slug:"mt-sagitta-ahts", title:"MT Sagitta", type:"Anchor Handling Tug", dealType:"Sale", location:"Lagos, Nigeria", region:"Nigeria", yearBuilt:2014, dimensions:{loa:"65.0",beam:"15.5",draft:"5.8"}, propulsion:{engines:"2x Caterpillar 3516C",bhpTotal:5760}, bollardPull:"80 tonnes", flag:"Nigerian", classSociety:"Lloyd's Register", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.TUG_A,gallery:[IMG.TUG_A,IMG.TUG_B,IMG.TUG_C]}, description:"The MT Sagitta is a robust anchor handling tug and supply vessel designed for offshore oil and gas operations in the Gulf of Guinea. Built to Lloyd's Register class standards, she offers a bollard pull of 80 tonnes suitable for FPSO anchor handling and towing operations. The vessel is currently Nigerian flagged and in active operation, with recent class renewal completed. Full documentation, class certificates and survey records are available to qualified buyers upon NDA execution.", tags:["AHTS","Offshore","Nigeria"], createdAt:"2024-01-10", updatedAt:"2025-03-01" },
   { id:"DW-1002", slug:"mv-delta-force-osv", title:"MV Delta Force", type:"Offshore Supply Vessel", dealType:"Charter", location:"Port Harcourt, Nigeria", region:"Nigeria", yearBuilt:2012, dimensions:{loa:"70.2",beam:"16.0",draft:"4.9"}, propulsion:{engines:"4x MTU 16V4000 M63",bhpTotal:8000}, bollardPull:null, flag:"Nigerian", classSociety:"Bureau Veritas", verified:true, pricing:{display:"Contact for Pricing",guidePrice:null,currency:"USD"}, media:{heroImage:IMG.OSV_A,gallery:[IMG.OSV_A,IMG.OSV_B,IMG.OSV_C]}, description:"MV Delta Force is a platform supply vessel certified for offshore operations in Nigerian deepwater and shallow water environments. She carries DP1 notation and is outfitted with a fully enclosed cargo deck of approximately 650 square metres. The vessel maintains Bureau Veritas class and is available for medium to long-term charter arrangements. Crew capacity stands at 30 persons in air-conditioned accommodation.", tags:["PSV","DP1","Nigeria"], createdAt:"2024-02-05", updatedAt:"2025-03-01" },
@@ -1856,9 +1886,9 @@ function showPage(page, param) {
 /* ═══════════════════════════════════════════════════════
    CARD RENDERER
 ═══════════════════════════════════════════════════════ */
-const FB = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80";
+const FB = IMG.FALLBACK;
 
-function buildCard(v) {
+function buildCard(v, idx=0) {
   const specs = [
     { l:'LOA', v: v.dimensions.loa + 'm' },
     { l:'Year', v: v.yearBuilt },
@@ -1868,7 +1898,7 @@ function buildCard(v) {
 <div class="vcard" onclick="showPage('detail','${v.id}')">
   <div class="vcard-img">
     <img src="${v.media.heroImage}" alt="${v.title}" loading="lazy" referrerpolicy="no-referrer"
-         onerror="this.onerror=null;this.src='${FB}'">
+         onerror="this.onerror=null;this.src='${FALLBACK_IMAGES[idx % FALLBACK_IMAGES.length]}'">
     <div class="vcard-badges">
       <span class="badge badge-dark">${v.type}</span>
       <span class="badge badge-${v.dealType.toLowerCase()}">${v.dealType==='Sale'?'For Sale':'For Charter'}</span>
@@ -1903,7 +1933,7 @@ function buildCard(v) {
 ═══════════════════════════════════════════════════════ */
 function renderFeatured() {
   const el = document.getElementById('featured-grid');
-  if (el) el.innerHTML = VesselService.getFeaturedVessels(6).map(buildCard).join('');
+  if (el) el.innerHTML = VesselService.getFeaturedVessels(6).map((v, idx)=>buildCard(v, idx)).join('');
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1991,7 +2021,7 @@ function renderGrid() {
   const v = state.results;
   const vc = v.filter(x=>x.verified).length;
   if (m) m.textContent = `Showing ${v.length} vessel${v.length!==1?'s':''} — ${vc} verified`;
-  g.innerHTML = v.length ? v.map(buildCard).join('') :
+  g.innerHTML = v.length ? v.map((vessel, idx)=>buildCard(vessel, idx)).join('') :
     `<div style="grid-column:1/-1;padding:4rem 2rem;text-align:center;color:var(--text-dim)">No listings match the current filters. <button onclick="resetFilters()" style="color:var(--gold);background:none;border:none;cursor:pointer;font-size:inherit">Reset filters</button></div>`;
 }
 
@@ -2000,6 +2030,8 @@ function renderGrid() {
 ═══════════════════════════════════════════════════════ */
 function renderDetail(id) {
   const v = VesselService.getVesselById(id);
+  const detailIndex = VESSELS_DATA.findIndex(x => x.id === id);
+  const detailFallback = FALLBACK_IMAGES[(detailIndex >= 0 ? detailIndex : 0) % FALLBACK_IMAGES.length];
   if (!v) { showPage('vessels'); return; }
   const related = VesselService.getRelatedVessels(id, 3);
   const specs = [
@@ -2040,11 +2072,11 @@ function renderDetail(id) {
   <div>
     <img id="gallery-main" src="${v.media.heroImage}" alt="${v.title}" class="gallery-main-img"
          referrerpolicy="no-referrer" loading="lazy"
-         onerror="this.onerror=null;this.src='${FB}'">
+         onerror="this.onerror=null;this.src='${detailFallback}'">
     <div class="gallery-thumbs">
       ${v.media.gallery.map((img,i)=>`
         <img src="${img}" class="gallery-thumb ${i===0?'active':''}" loading="lazy" referrerpolicy="no-referrer"
-             onclick="setThumb('${img}',this)" onerror="this.onerror=null;this.style.display='none'"
+             onclick="setThumb('${img}',this)" onerror="this.onerror=null;this.src='${FALLBACK_IMAGES[(detailIndex + i) % FALLBACK_IMAGES.length]}'"
              alt="${v.title} ${i+1}">`).join('')}
     </div>
 
@@ -2069,7 +2101,7 @@ function renderDetail(id) {
     <div class="divider"></div>
     <div class="detail-sec-title">Related Vessels</div>
     <div class="vessels-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
-      ${related.map(buildCard).join('')}
+      ${related.map((vessel, idx)=>buildCard(vessel, idx)).join('')}
     </div>`:''}
 
     <div class="brok-disclaimer">
